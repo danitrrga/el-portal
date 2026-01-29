@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Portal | OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* PACIFIC & BALI PALETTE (Light) */
+        --bg-body: #fafafa; /* Zinc 50 - True Neutral */
+        --bg-card: #ffffff;
+        --text-main: #18181b; /* Zinc 900 */
+        --text-muted: #71717a; /* Zinc 500 */
+        
+        /* Brand Colors */
+        --pacific-500: #0ea5e9; /* Sky 500 - Bluer, less neon */
+        --pacific-600: #0284c7; /* Sky 600 */
+        --bali-500: #10b981;    /* Emerald 500 */
+        --bali-600: #059669;    /* Emerald 600 */
+        --graphite-800: #27272a; /* Zinc 800 */
+        --graphite-900: #18181b; /* Zinc 900 */
+      }
+
+      body.dark-mode {
+        /* PACIFIC & BALI PALETTE (Dark) - DEEP GRAPHITE */
+        --bg-body: #09090b; /* Zinc 950 - Deep Void */
+        --bg-card: #18181b; /* Zinc 900 - Graphite */
+        --text-main: #f4f4f5; /* Zinc 100 */
+        --text-muted: #a1a1aa; /* Zinc 400 */
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-font-smoothing: antialiased;
+      }
+      
+      h1, h2, h3, h4, h5, h6, .font-display {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      /* Elegant Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #52525b; /* Zinc 600 */
+        border-radius: 99px;
+      }
+      body.dark-mode ::-webkit-scrollbar-thumb {
+        background: #3f3f46; /* Zinc 700 */
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0ea5e9; /* Pacific Blue hover */
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Plus Jakarta Sans', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              background: 'var(--bg-body)',
+              card: 'var(--bg-card)',
+              pacific: {
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                200: '#bae6fd',
+                300: '#7dd3fc',
+                400: '#38bdf8',
+                500: '#0ea5e9', // Sky 500
+                600: '#0284c7',
+                700: '#0369a1',
+                800: '#075985',
+                900: '#0c4a6e',
+                950: '#082f49',
+              },
+              bali: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                200: '#a7f3d0',
+                300: '#6ee7b7',
+                400: '#34d399',
+                500: '#10b981', // Emerald 500
+                600: '#059669',
+                700: '#047857',
+                800: '#065f46',
+                900: '#064e3b',
+              },
+              /* TRUE GRAPHITE (Zinc) - Removing Blue Tint */
+              graphite: {
+                50: '#fafafa',
+                100: '#f4f4f5',
+                200: '#e4e4e7',
+                300: '#d4d4d8',
+                400: '#a1a1aa',
+                500: '#71717a',
+                600: '#52525b',
+                700: '#3f3f46',
+                800: '#27272a',
+                900: '#18181b',
+                950: '#09090b', 
+              }
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0",
+    "recharts": "https://esm.sh/recharts@2.12.3?external=react,react-dom"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
