@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './services/mockDb';
 import PortalEntry from './components/PortalEntry';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
@@ -9,17 +8,11 @@ import Cinema from './pages/Cinema';
 import Archives from './pages/Archives';
 import DatabasePage from './pages/DatabasePage';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { Profile } from './types';
+// import { Profile } from './types'; // Unused for now in App level if PortalEntry handles auth gate
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  const [user, setUser] = useState<Profile | null>(null);
   const [activePage, setActivePage] = useState('dashboard');
-
-  // Simulate persistent login check
-  useEffect(() => {
-    db.login().then(setUser);
-  }, []);
 
   // Manual Hash Routing
   useEffect(() => {
@@ -63,19 +56,22 @@ const App: React.FC = () => {
     }
   };
 
-  if (!user) {
-    return <div className="flex h-screen w-full items-center justify-center bg-zinc-950 text-zinc-500 font-display text-sm tracking-widest animate-pulse">ESTABLISHING UPLINK...</div>;
-  }
-
   return (
     <ThemeProvider>
       {!hasEntered && <PortalEntry onEnter={handlePortalEnter} />}
-      
-      <div className="h-screen w-full">
+
+      {/* 
+        Only render the main layout functionality if we have entered.
+        However, to keep the DOM stable during animation, we might want to render it hidden behind.
+        But standard behavior is fine. 
+      */}
+      {hasEntered && (
+        <div className="h-screen w-full animate-in fade-in duration-1000">
           <Layout activePage={activePage} onNavigate={handleNavigate}>
             {renderContent()}
           </Layout>
-      </div>
+        </div>
+      )}
     </ThemeProvider>
   );
 };
