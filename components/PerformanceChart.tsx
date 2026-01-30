@@ -82,7 +82,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                     data={data}
-                    margin={{ top: 10, right: 10, left: -10, bottom: 20 }}
+                    margin={{ top: 10, right: 10, left: 5, bottom: 20 }}
                     onClick={(e) => {
                         if (onDataSelect && e && e.activePayload && e.activePayload[0]) {
                             onDataSelect(e.activePayload[0].payload);
@@ -121,7 +121,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
                         tick={{ fill: '#a1a1aa', fontSize: 12, fontWeight: 600, fontFamily: 'monospace' }}
                         domain={[0, 100]}
                         ticks={[0, 50, 100]}
-                        width={35}
+                        width={45}
                         interval={0}
                         dx={-5}
                     />
