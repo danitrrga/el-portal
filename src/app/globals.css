@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* PACIFIC & BALI PALETTE (Light) */
+  --bg-body: #fafafa;
+  /* Zinc 50 - True Neutral */
+  --bg-card: #ffffff;
+  --text-main: #18181b;
+  /* Zinc 900 */
+  --text-muted: #71717a;
+  /* Zinc 500 */
+
+  /* Brand Colors */
+  --pacific-500: #0ea5e9;
+  /* Sky 500 */
+  --pacific-600: #0284c7;
+  /* Sky 600 */
+  --bali-500: #10b981;
+  /* Emerald 500 */
+  --bali-600: #059669;
+  /* Emerald 600 */
+  --graphite-200: #e4e4e7;
+  --graphite-300: #d4d4d8;
+  --graphite-400: #a1a1aa;
+  --graphite-500: #71717a;
+  --graphite-600: #52525b;
+  --graphite-700: #3f3f46;
+  --graphite-800: #27272a;
+  /* Zinc 800 */
+  --graphite-900: #18181b;
+  /* Zinc 900 */
+}
+
+.dark {
+  /* PACIFIC & BALI PALETTE (Dark) - DEEP GRAPHITE */
+  --bg-body: #09090b;
+  /* Zinc 950 - Deep Void */
+  --bg-card: #18181b;
+  /* Zinc 900 - Graphite */
+  --text-main: #f4f4f5;
+  /* Zinc 100 */
+  --text-muted: #a1a1aa;
+  /* Zinc 400 */
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Elegant Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #52525b;
+  /* Zinc 600 */
+  border-radius: 99px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  /* Zinc 700 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+  /* Pacific Blue hover */
+}

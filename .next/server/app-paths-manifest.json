@@ -1,0 +1,9 @@
+{
+  "/page": "app/page.js",
+  "/(portal)/lab/page": "app/(portal)/lab/page.js",
+  "/(portal)/archives/page": "app/(portal)/archives/page.js",
+  "/(portal)/history/page": "app/(portal)/history/page.js",
+  "/(portal)/cinema/page": "app/(portal)/cinema/page.js",
+  "/(portal)/dashboard/page": "app/(portal)/dashboard/page.js",
+  "/(portal)/database/page": "app/(portal)/database/page.js"
+}
