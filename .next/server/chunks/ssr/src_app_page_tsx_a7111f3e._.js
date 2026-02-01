@@ -1,0 +1,3 @@
+module.exports=[40777,a=>{"use strict";var b=a.i(87924),c=a.i(72131),d=a.i(50944),e=a.i(10849);a.s(["default",0,function(){let a=(0,d.useRouter)();return(0,c.useEffect)(()=>{(async()=>{let{data:{session:b}}=await e.supabase.auth.getSession();a.push("/dashboard")})()},[a]),(0,b.jsx)("div",{className:"h-screen w-full bg-background flex items-center justify-center",children:(0,b.jsx)("div",{className:"animate-pulse text-pacific-500 font-mono text-sm uppercase tracking-widest",children:"Redirecting to Portal..."})})}])}];
+
+//# sourceMappingURL=src_app_page_tsx_a7111f3e._.js.map

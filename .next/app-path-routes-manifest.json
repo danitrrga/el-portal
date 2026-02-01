@@ -1,0 +1,11 @@
+{
+  "/(portal)/archives/page": "/archives",
+  "/(portal)/cinema/page": "/cinema",
+  "/(portal)/dashboard/page": "/dashboard",
+  "/(portal)/database/page": "/database",
+  "/(portal)/history/page": "/history",
+  "/(portal)/lab/page": "/lab",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/page": "/"
+}

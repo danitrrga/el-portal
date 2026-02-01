@@ -41,6 +41,34 @@ export class SupabaseService {
         };
     }
 
+    async updateProfile(updates: Partial<Profile>): Promise<void> {
+        const userId = await this.getUserId();
+        const { error } = await supabase
+            .from('profiles')
+            .update(updates)
+            .eq('id', userId);
+        if (error) throw error;
+    }
+
+    async uploadAvatar(file: File): Promise<string> {
+        const userId = await this.getUserId();
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${userId}/avatar-${Date.now()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from('el-portal-assets')
+            .upload(filePath, file, { upsert: true });
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+            .from('el-portal-assets')
+            .getPublicUrl(filePath);
+
+        return data.publicUrl;
+    }
+
     async updateSystemSettings(days: number, cycles: number): Promise<void> {
         const userId = await this.getUserId();
         const { error } = await supabase

@@ -37,6 +37,7 @@ const Dashboard: React.FC = () => {
       setLoading(false);
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   };
 

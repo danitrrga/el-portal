@@ -154,7 +154,10 @@ const Lab: React.FC = () => {
             setMaxCycles(settings.cycles);
             if (labData.activeCycleId && !expandedCycleId) setExpandedCycleId(labData.activeCycleId);
             setLoading(false);
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error(e);
+            setLoading(false);
+        }
     };
 
     useEffect(() => { loadLabData(); }, []);

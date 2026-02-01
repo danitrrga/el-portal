@@ -12,7 +12,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // Ensure we pass a valid URL format to avoid runtime crash during development if variables are missing
-const validUrl = supabaseUrl || 'https://placeholder.supabase.co';
-const validKey = supabaseAnonKey || 'placeholder-key';
+const validUrl = supabaseUrl || 'https://hrmemkwrdjbwtqguuqjm.supabase.co';
+const validKey = supabaseAnonKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhybWVta3dyZGpid3RxZ3V1cWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MTg5OTAsImV4cCI6MjA4NDQ5NDk5MH0.6Dltp4LOeaQROJzisvUAfXzctyEDO4DtgXomuPkfAks';
 
 export const supabase = createClient(validUrl, validKey);
