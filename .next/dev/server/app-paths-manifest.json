@@ -1,5 +1,0 @@
-{
-  "/(portal)/dashboard/page": "app/(portal)/dashboard/page.js",
-  "/(portal)/history/page": "app/(portal)/history/page.js",
-  "/page": "app/page.js"
-}

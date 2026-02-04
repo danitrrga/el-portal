@@ -130,7 +130,9 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
           <div className="w-full relative group/card p-[1px] rounded-[34px] bg-gradient-to-br from-white/15 via-white/5 to-white/10 shadow-[0_60px_120px_-30px_rgba(0,0,0,1)]">
 
             {/* Layer 2: High-Contrast Specular Highlights (The "Glint") */}
-            <div className="absolute inset-0 rounded-[34px] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-[1.5s] pointer-events-none"></div>
+            <div className={`absolute inset-0 rounded-[34px] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-[1.5s] pointer-events-none
+  ${authLoading ? 'group-hover/card:opacity-10' : 'group-hover/card:opacity-100'}`}>
+            </div>
 
             {/* Parent Surface Container (The Core) */}
             <div className="relative rounded-[33px] bg-zinc-950/40 backdrop-blur-3xl overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
