@@ -99,7 +99,7 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
         <div className="absolute inset-0">
           {/* Broad atmospheric Pacific-blue wash at bottom edge */}
           <div className="absolute bottom-[-15%] left-1/2 -translate-x-1/2 w-[100%] h-[60vh] bg-pacific-500/20 blur-[160px] rounded-[100%] opacity-100"></div>
-          <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[40vh] bg-pacific-400/10 blur-[120px] rounded-[100%] animate-pulse duration-[8s] transition-all"></div>
+          <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[40vh] bg-pacific-400/10 blur-[120px] rounded-[100%] animate-pulse duration-8000 transition-all"></div>
 
           {/* Global Film Grain Overlay */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay pointer-events-none"
@@ -130,8 +130,8 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
           <div className="w-full relative group/card p-[1px] rounded-[34px] bg-gradient-to-br from-white/15 via-white/5 to-white/10 shadow-[0_60px_120px_-30px_rgba(0,0,0,1)]">
 
             {/* Layer 2: High-Contrast Specular Highlights (The "Glint") */}
-            <div className={`absolute inset-0 rounded-[34px] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-[1.5s] pointer-events-none
-  ${authLoading ? 'group-hover/card:opacity-10' : 'group-hover/card:opacity-100'}`}>
+            <div className={`absolute inset-0 rounded-[34px] bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-1500 pointer-events-none
+            ${authLoading ? 'group-hover/card:opacity-10' : 'group-hover/card:opacity-100'}`}>
             </div>
 
             {/* Parent Surface Container (The Core) */}
@@ -269,13 +269,13 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
       {/* The "Door" Logic - Two panels splitting */}
       {/* Light Mode: #fafafa (Zinc 50), Dark Mode: #18181b (Zinc 900) */}
       <div
-        className={`absolute inset-y-0 left-0 z-20 transition-transform duration-[1500ms] ease-in-out border-r 
+        className={`absolute inset-y-0 left-0 z-20 transition-transform duration-1500 ease-in-out border-r 
         bg-[#fafafa] dark:bg-[#18181b] border-zinc-200 dark:border-zinc-800
         ${stage === 2 ? '-translate-x-full' : 'translate-x-0'}`}
         style={{ width: '50%' }}
       />
       <div
-        className={`absolute inset-y-0 right-0 z-20 transition-transform duration-[1500ms] ease-in-out border-l 
+        className={`absolute inset-y-0 right-0 z-20 transition-transform duration-1500 ease-in-out border-l 
         bg-[#fafafa] dark:bg-[#18181b] border-zinc-200 dark:border-zinc-800
         ${stage === 2 ? 'translate-x-full' : 'translate-x-0'}`}
         style={{ width: '50%' }}
@@ -292,12 +292,12 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
           />
 
           {/* Top Secondary Line */}
-          <div className={`absolute h-[1px] bg-zinc-300 dark:bg-zinc-700 transition-all duration-[1200ms] ease-out delay-100
+          <div className={`absolute h-[1px] bg-zinc-300 dark:bg-zinc-700 transition-all duration-1200 ease-out delay-100
               ${stage >= 1 ? 'w-[400px] -translate-y-20 opacity-40' : 'w-0 translate-y-0 opacity-0'}`}
           />
 
           {/* Bottom Secondary Line */}
-          <div className={`absolute h-[1px] bg-zinc-300 dark:bg-zinc-700 transition-all duration-[1200ms] ease-out delay-100
+          <div className={`absolute h-[1px] bg-zinc-300 dark:bg-zinc-700 transition-all duration-1200 ease-out delay-100
               ${stage >= 1 ? 'w-[400px] translate-y-20 opacity-40' : 'w-0 translate-y-0 opacity-0'}`}
           />
 

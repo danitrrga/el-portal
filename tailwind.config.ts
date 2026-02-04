@@ -110,6 +110,11 @@ const config: Config = {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			transitionDuration: {
+				'1200': '1200ms',
+				'1500': '1500ms',
+				'8000': '8000ms',
 			}
 		}
 	},
