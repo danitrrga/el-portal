@@ -109,20 +109,30 @@ export class SupabaseService {
     }
 
     // 3.2 Asymptotic Goal Progression
-    calculateAsymptoticScore(streak: number): number {
-        // Constraint: 7 days = ~35%
-        // Formula: Progress % = 100 * (1 - e^(-0.061 * StreakDays))
-        if (streak <= 0) return 0;
-        const progress = 100 * (1 - Math.exp(-0.061 * streak));
+    calculateAsymptoticScore(streak: number, consistency: number = 0.5): number {
+        // Benchmark: 7 days streak @ 50% consistency = 35% progress
+        // Weighted Days = Streak * (0.8 + 0.4 * Consistency)
+        // Formula: Progress % = 100 * (1 - e^(-0.061 * WeightedDays))
+
+        const weightedDays = streak * (0.8 + 0.4 * consistency);
+        if (weightedDays <= 0) return 0;
+
+        const progress = 100 * (1 - Math.exp(-0.061 * weightedDays));
         return Math.min(100, Math.round(progress));
     }
 
-    private calculateHabitStreaks(habitId: string, allLogs: HabitLog[]): { currentStreak: number, maxStreak: number } {
+    private calculateHabitStreaks(habitId: string, allLogs: HabitLog[]): { currentStreak: number, maxStreak: number, consistency: number } {
         // Filter logs for this habit and ensure they are 'true' (completed)
         const logs = allLogs.filter(l => l.habit_id === habitId && l.status);
         const dates = Array.from(new Set(logs.map(l => l.date))).sort();
 
-        if (dates.length === 0) return { currentStreak: 0, maxStreak: 0 };
+        if (dates.length === 0) return { currentStreak: 0, maxStreak: 0, consistency: 0 };
+
+        // Consistency Calculation
+        const firstDate = new Date(dates[0]);
+        const today = new Date();
+        const totalDays = Math.max(1, Math.round((today.getTime() - firstDate.getTime()) / (1000 * 3600 * 24)) + 1);
+        const consistency = logs.length / totalDays;
 
         // Max Streak Calculation
         let max = 0;
@@ -147,8 +157,9 @@ export class SupabaseService {
         max = Math.max(max, current);
 
         // Current Streak Calculation
+        // Current Streak Calculation
         let streak = 0;
-        const today = new Date();
+        // today is already defined above
         const todayStr = today.toISOString().split('T')[0];
 
         const yesterday = new Date(today);
@@ -178,7 +189,7 @@ export class SupabaseService {
             }
         }
 
-        return { currentStreak: streak, maxStreak: max };
+        return { currentStreak: streak, maxStreak: max, consistency };
     }
 
     // -- DATA FETCHING --
@@ -226,7 +237,7 @@ export class SupabaseService {
         const todayStr = this.getLocalDateString();
         const todayLogs = logs.filter(l => l.date === todayStr);
 
-        const habitStats: Record<string, { currentStreak: number; maxStreak: number }> = {};
+        const habitStats: Record<string, { currentStreak: number; maxStreak: number; consistency: number }> = {};
         habits.forEach(h => {
             habitStats[h.id] = this.calculateHabitStreaks(h.id, logs);
         });
@@ -469,7 +480,7 @@ export class SupabaseService {
     async getHistoryData(): Promise<{
         dailyScores: { date: string; score: number; details: any[] }[],
         cycles: Cycle[],
-        habitStats: Record<string, { currentStreak: number; maxStreak: number }>
+        habitStats: Record<string, { currentStreak: number; maxStreak: number; consistency: number }>
     }> {
         const userId = await this.getUserId();
 
@@ -498,7 +509,7 @@ export class SupabaseService {
         const cycles = cyclesData || [];
 
         // 4. Calculate Stats (Streaks)
-        const habitStats: Record<string, { currentStreak: number; maxStreak: number }> = {};
+        const habitStats: Record<string, { currentStreak: number; maxStreak: number; consistency: number }> = {};
         habits.forEach(h => {
             // We pass ALL logs to streak calc, it handles filtering by habit_id
             habitStats[h.id] = this.calculateHabitStreaks(h.id, logs);
@@ -725,7 +736,7 @@ export class SupabaseService {
 
     // -- LAB METHODS --
 
-    async getLabData(): Promise<{ goals: Goal[]; version: Version | null; cycles: Cycle[]; habits: Habit[]; activeCycleId: string | null }> {
+    async getLabData(): Promise<{ goals: Goal[]; version: Version | null; cycles: Cycle[]; habits: Habit[]; activeCycleId: string | null, habitStats: Record<string, { currentStreak: number; maxStreak: number; consistency: number }> }> {
         const userId = await this.getUserId();
         const profile = await this.getProfile();
 
@@ -744,12 +755,23 @@ export class SupabaseService {
         const { data: goals } = await supabase.from('goals').select('*').eq('user_id', userId);
         const { data: habits } = await supabase.from('habits').select('*').eq('user_id', userId);
 
+        // Fetch Logs for Stats
+        const { data: logs } = await supabase.from('habit_logs').select('*').eq('user_id', userId);
+        const habitStats: Record<string, { currentStreak: number; maxStreak: number; consistency: number }> = {};
+
+        if (habits && logs) {
+            habits.forEach(h => {
+                habitStats[h.id] = this.calculateHabitStreaks(h.id, logs);
+            });
+        }
+
         return {
             goals: goals || [],
             version: currentVersion,
             cycles: versionCycles,
             habits: habits || [],
-            activeCycleId: profile?.current_cycle_id || null
+            activeCycleId: profile?.current_cycle_id || null,
+            habitStats
         };
     }
 

@@ -192,7 +192,7 @@ export const CycleEditorModal: React.FC<CycleEditorModalProps> = ({
     const handleGoalSaveWrapper = (goalData: any, selectedHabit: any) => {
         // goalData from modal: { title, description, type, subtasks (string[]) }
         const newGoalObj = {
-            id: editingGoal?.id || `temp-g-${Date.now()}`,
+            id: editingGoal?.id || crypto.randomUUID(),
             ...goalData,
             // If it's consistency, we need to store the habit data structure temporarily for the parent to process
             linkedHabit: selectedHabit,
@@ -218,7 +218,7 @@ export const CycleEditorModal: React.FC<CycleEditorModalProps> = ({
 
     const handleHabitSaveWrapper = (habitData: any) => {
         const newHabitObj = {
-            id: editingHabit?.id || `temp-h-${Date.now()}`,
+            id: editingHabit?.id || crypto.randomUUID(),
             ...habitData
         };
 

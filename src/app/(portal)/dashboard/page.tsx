@@ -23,6 +23,7 @@ const PerformanceChart = dynamic(
 
 import { NewVersionModal } from '@/components/NewVersionModal';
 import { ProgressArc } from '@/components/ProgressArc';
+import { DashboardGoals } from '@/components/DashboardGoals';
 
 type ChartView = 'week' | '30d' | 'cycle';
 
@@ -42,7 +43,7 @@ const Dashboard: React.FC = () => {
   const [currentScore, setCurrentScore] = useState(0);
   const [togglingHabits, setTogglingHabits] = useState<Set<string>>(new Set());
   const [chartView, setChartView] = useState<ChartView>('week');
-  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+
   const [showNewVersion, setShowNewVersion] = useState(false);
 
   const loadData = async () => {
@@ -110,28 +111,9 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const toggleProject = (id: string) => {
-    const newSet = new Set(expandedProjects);
-    if (newSet.has(id)) newSet.delete(id);
-    else newSet.add(id);
-    setExpandedProjects(newSet);
-  };
 
-  const handleToggleSubtask = async (goalId: string, index: number) => {
-    if (!data) return;
-    const goalIndex = data.goals.findIndex(g => g.id === goalId);
-    if (goalIndex === -1) return;
-    const goal = data.goals[goalIndex];
-    if (!goal.subtasks || !Array.isArray(goal.subtasks)) return;
 
-    const newSubtasks = [...goal.subtasks];
-    newSubtasks[index] = { ...newSubtasks[index], done: !newSubtasks[index].done };
-    const updatedGoal = { ...goal, subtasks: newSubtasks };
-    const newGoals = [...data.goals];
-    newGoals[goalIndex] = updatedGoal;
-    setData({ ...data, goals: newGoals });
-    await supabaseService.updateGoal(updatedGoal);
-  };
+
 
   const handleCreateVersion = async (vData: { title: string; description: string; number: number; startDate: string }) => {
     await supabaseService.createVersion(vData);
@@ -202,7 +184,8 @@ const Dashboard: React.FC = () => {
   };
 
   const chartData = getChartData();
-  const activeProjects = data.goals.filter(g => g.type === GoalType.TASK_PROJECT && g.cycle_id === data.cycle?.id);
+  // activeProjects removed - handled in DashboardGoals
+
 
   const learningItems = data.cycle?.learning_focus
     ? data.cycle.learning_focus.split(/[,\n]/).map(s => s.trim()).filter(Boolean)
@@ -363,84 +346,13 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Col 3: Cycle Goals - 3 columns */}
-        <div className="lg:col-span-3 rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest flex items-center gap-1.5">
-              <Target size={12} /> CYCLE GOALS
-            </h3>
-          </div>
-          <div className="space-y-2.5">
-            {activeProjects.map((project) => {
-              const isExpanded = expandedProjects.has(project.id);
-              const subtasks = project.subtasks || [];
-              const completed = subtasks.filter(t => t.done).length;
-              const total = subtasks.length;
-              const progress = total > 0 ? (completed / total) * 100 : 0;
-              const isDone = total > 0 && completed === total;
-
-              return (
-                <div
-                  key={project.id}
-                  className={`group relative rounded-xl border transition-all duration-300 overflow-hidden ${isExpanded || isDone
-                    ? 'bg-bali-500/10 border-bali-500/30'
-                    : 'bg-graphite-50 dark:bg-graphite-800/50 border-graphite-200 dark:border-graphite-700 hover:border-pacific-500/50'
-                    }`}
-                >
-                  {/* Progress bar at top edge */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-graphite-100 dark:bg-graphite-800/50">
-                    <div className={`h-full transition-all duration-500 ${isDone ? 'bg-bali-500' : 'bg-pacific-500'}`} style={{ width: `${progress}%` }} />
-                  </div>
-
-                  <div className="p-3 pt-3.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className={`text-xs font-bold leading-tight flex-1 ${isDone ? 'text-bali-600 dark:text-bali-400 line-through' : 'text-graphite-900 dark:text-white'}`}>
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-[10px] font-mono font-bold text-graphite-400">{Math.round(progress)}%</span>
-                        <button
-                          onClick={() => toggleProject(project.id)}
-                          className="p-1 rounded-md hover:bg-graphite-100 dark:hover:bg-graphite-700 transition-colors"
-                        >
-                          {isExpanded ? <ChevronUp size={14} className="text-graphite-400" /> : <ChevronDown size={14} className="text-graphite-400" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Collapsible subtasks */}
-                    {isExpanded && (
-                      <div className="pt-2.5 border-t border-graphite-100 dark:border-graphite-700 space-y-2 mt-2.5">
-                        {subtasks.length > 0 ? subtasks.map((task, i) => (
-                          <div key={i} className="flex items-start gap-2">
-                            <button
-                              onClick={() => handleToggleSubtask(project.id, i)}
-                              className={`mt-0.5 h-4 w-4 rounded border flex items-center justify-center transition-all flex-shrink-0 ${task.done
-                                ? 'bg-pacific-500 border-pacific-500 text-white'
-                                : 'border-graphite-300 dark:border-graphite-600 hover:border-pacific-400'
-                                }`}
-                            >
-                              {task.done && <Check size={10} strokeWidth={3} />}
-                            </button>
-                            <span
-                              className={`text-xs leading-snug cursor-pointer ${task.done ? 'text-graphite-400 line-through' : 'text-graphite-600 dark:text-graphite-300'}`}
-                              onClick={() => handleToggleSubtask(project.id, i)}
-                            >
-                              {task.name}
-                            </span>
-                          </div>
-                        )) : (
-                          <div className="text-center py-2 text-[10px] text-graphite-400 italic">No subtasks defined</div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-            {activeProjects.length === 0 && (
-              <div className="text-center py-8 text-xs text-graphite-400 italic">No cycle goals defined.</div>
-            )}
-          </div>
+        <div className="lg:col-span-3 h-full min-h-[400px]">
+          <DashboardGoals
+            goals={data.goals.filter(g => g.cycle_id === data.cycle?.id)}
+            habits={data.habits}
+            habitStats={data.habitStats}
+            onUpdate={loadData}
+          />
         </div>
 
         {/* Col 4: Focus Cards - 3 columns */}

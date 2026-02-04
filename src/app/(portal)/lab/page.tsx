@@ -123,7 +123,7 @@ const HabitSelectorModal: React.FC<HabitSelectorModalProps> = ({ isOpen, onClose
 };
 
 const Lab: React.FC = () => {
-    const [data, setData] = useState<{ goals: Goal[]; version: Version | null; cycles: Cycle[]; habits: Habit[]; activeCycleId: string | null } | null>(null);
+    const [data, setData] = useState<{ goals: Goal[]; version: Version | null; cycles: Cycle[]; habits: Habit[]; activeCycleId: string | null; habitStats?: Record<string, { currentStreak: number; maxStreak: number; consistency: number }> } | null>(null);
     const [loading, setLoading] = useState(true);
     const [showNewVersion, setShowNewVersion] = useState(false);
     const [showNewCycle, setShowNewCycle] = useState(false);
@@ -237,34 +237,47 @@ const Lab: React.FC = () => {
     };
 
     const handleAddGoal = async (goalData: { title: string; description: string; type: GoalType; subtasks?: string[] }, linkedHabit: Habit | null) => {
-        if (!targetCycleIdForAddGoal) return;
-        const newGoalId = `g-${crypto.randomUUID()}`;
-        const newGoal: Goal = { id: newGoalId, cycle_id: targetCycleIdForAddGoal, title: goalData.title, description: goalData.description, type: goalData.type, };
-        if (goalData.type === GoalType.TASK_PROJECT) {
-            const tasks = goalData.subtasks?.map(rawName => {
-                const match = rawName.match(/^(\s*)/); const leadingStr = match ? match[1] : ''; const normalizedIndent = leadingStr.replace(/\t/g, '  '); const level = Math.floor(normalizedIndent.length / 2);
-                return { name: rawName.trim(), done: false, level };
-            }) || [];
-            newGoal.subtasks = tasks;
-        } else if (goalData.type === GoalType.CONSISTENCY_METRIC && linkedHabit) {
-            let habitId = linkedHabit.id;
-            if (linkedHabit.cycle_id !== targetCycleIdForAddGoal) {
-                const newHabitId = `h-${crypto.randomUUID()}`; const newHabit: Habit = { ...linkedHabit, id: newHabitId, cycle_id: targetCycleIdForAddGoal, linked_goal_id: newGoalId };
-                await supabaseService.addHabit(newHabit); habitId = newHabitId;
-            } else { const updatedHabit = { ...linkedHabit, linked_goal_id: newGoalId }; await supabaseService.updateHabit(updatedHabit); }
-            newGoal.linked_habit_id = habitId; newGoal.current_streak = 0;
+        try {
+            if (!targetCycleIdForAddGoal) return;
+            const newGoalId = crypto.randomUUID();
+            const newGoal: Goal = { id: newGoalId, cycle_id: targetCycleIdForAddGoal, title: goalData.title, description: goalData.description, type: goalData.type, };
+            if (goalData.type === GoalType.TASK_PROJECT) {
+                const tasks = goalData.subtasks?.map(rawName => {
+                    const match = rawName.match(/^(\s*)/); const leadingStr = match ? match[1] : ''; const normalizedIndent = leadingStr.replace(/\t/g, '  '); const level = Math.floor(normalizedIndent.length / 2);
+                    return { name: rawName.trim(), done: false, level };
+                }) || [];
+                newGoal.subtasks = tasks;
+            } else if (goalData.type === GoalType.CONSISTENCY_METRIC && linkedHabit) {
+                let habitId = linkedHabit.id;
+                if (linkedHabit.cycle_id !== targetCycleIdForAddGoal) {
+                    const newHabitId = crypto.randomUUID(); const newHabit: Habit = { ...linkedHabit, id: newHabitId, cycle_id: targetCycleIdForAddGoal, linked_goal_id: newGoalId };
+                    await supabaseService.addHabit(newHabit); habitId = newHabitId;
+                } else { const updatedHabit = { ...linkedHabit, linked_goal_id: newGoalId }; await supabaseService.updateHabit(updatedHabit); }
+                newGoal.linked_habit_id = habitId; newGoal.current_streak = 0;
+            }
+            await supabaseService.addGoal(newGoal); setShowAddGoalModal(false); loadLabData();
+        } catch (error) {
+            console.error("Goal Creation Failed:", JSON.stringify(error, null, 2));
+            // Optionally set error state to show in UI
         }
-        await supabaseService.addGoal(newGoal); setShowAddGoalModal(false); loadLabData();
     };
 
-    const handleDeleteGoal = async (id: string) => { await supabaseService.deleteGoal(id); loadLabData(); };
+    const handleDeleteGoal = async (id: string) => {
+        try {
+            await supabaseService.deleteGoal(id);
+            loadLabData();
+        } catch (error) {
+            console.error("Delete Goal Failed:", JSON.stringify(error, null, 2));
+            loadLabData(); // Try to consistency check
+        }
+    };
     const handleOpenHabitSelector = (goalId: string) => { setSelectedGoalIdForLinking(goalId); setShowHabitSelector(true); };
     const handleLinkHabit = async (habit: Habit) => {
         if (!data || !selectedGoalIdForLinking) return;
         const isCurrentCycle = habit.cycle_id === data.activeCycleId;
         let habitIdToLink = habit.id;
         if (!isCurrentCycle && data.activeCycleId) {
-            const newHabit: Habit = { id: `h-${crypto.randomUUID()}`, cycle_id: data.activeCycleId, name: habit.name, category: habit.category, weight: habit.weight, linked_goal_id: selectedGoalIdForLinking };
+            const newHabit: Habit = { id: crypto.randomUUID(), cycle_id: data.activeCycleId, name: habit.name, category: habit.category, weight: habit.weight, linked_goal_id: selectedGoalIdForLinking };
             await supabaseService.addHabit(newHabit); habitIdToLink = newHabit.id;
         } else { const updatedHabit = { ...habit, linked_goal_id: selectedGoalIdForLinking }; await supabaseService.updateHabit(updatedHabit); }
         const goalToUpdate = data.goals.find((g: Goal) => g.id === selectedGoalIdForLinking);
@@ -293,7 +306,7 @@ const Lab: React.FC = () => {
             };
 
             if (action === 'create') {
-                const newGoalId = `g-${crypto.randomUUID()}`;
+                const newGoalId = crypto.randomUUID();
                 const newGoal: Goal = {
                     id: newGoalId,
                     cycle_id: editingCycle.id,
@@ -314,7 +327,7 @@ const Lab: React.FC = () => {
                 } else if (goalData.type === GoalType.CONSISTENCY_METRIC && payload.linkedHabit) {
                     let habitId = payload.linkedHabit.id;
                     if (payload.linkedHabit.cycle_id !== editingCycle.id) {
-                        const newHabitId = `h-${crypto.randomUUID()}`;
+                        const newHabitId = crypto.randomUUID();
                         const newHabit: Habit = { ...payload.linkedHabit, id: newHabitId, cycle_id: editingCycle.id, linked_goal_id: newGoalId };
                         await supabaseService.addHabit(newHabit);
                         habitId = newHabitId;
@@ -361,7 +374,7 @@ const Lab: React.FC = () => {
             await supabaseService.deleteHabit(payload.id);
         } else if (action === 'create') {
             const newHabit: Habit = {
-                id: `h-${crypto.randomUUID()}`,
+                id: crypto.randomUUID(),
                 cycle_id: editingCycle.id,
                 name: payload.name,
                 category: payload.category,
@@ -544,7 +557,13 @@ const Lab: React.FC = () => {
                                                 const goalCardClass = isSystemActive ? "bg-graphite-50 dark:bg-graphite-800/50 border-graphite-200 dark:border-graphite-700 hover:border-pacific-500/30" : "bg-graphite-50 dark:bg-graphite-800/50 border-graphite-200 dark:border-graphite-700 hover:border-pacific-500/30";
                                                 let progressPercent = 0; let showProgressBar = false;
                                                 if (goal.type === GoalType.TASK_PROJECT) { const totalTasks = goal.subtasks?.length || 0; const completedTasks = goal.subtasks?.filter(t => t.done).length || 0; if (totalTasks > 0) { progressPercent = (completedTasks / totalTasks) * 100; showProgressBar = true; } }
-                                                else if (goal.type === GoalType.CONSISTENCY_METRIC) { const streak = goal.current_streak || 0; progressPercent = Math.min(100, 100 * (1 - Math.exp(-0.061 * streak))); showProgressBar = true; }
+                                                else if (goal.type === GoalType.CONSISTENCY_METRIC) {
+                                                    const stats = data.habitStats && goal.linked_habit_id ? data.habitStats[goal.linked_habit_id] : null;
+                                                    const streak = stats ? stats.currentStreak : (goal.current_streak || 0);
+                                                    const consistency = stats ? stats.consistency : 0.5;
+                                                    progressPercent = supabaseService.calculateAsymptoticScore(streak, consistency);
+                                                    showProgressBar = true;
+                                                }
 
                                                 return (
                                                     <div key={goal.id} onClick={isProject ? () => toggleGoalCollapse(goal.id) : undefined} className={`group relative p-5 rounded-2xl border transition-all overflow-hidden ${goalCardClass} ${isProject ? 'cursor-pointer' : ''}`}>

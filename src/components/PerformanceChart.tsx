@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import { ChartConfig, ChartContainer } from '@/components/ui/chart';
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { ChartConfig, ChartContainer, ChartTooltip } from '@/components/ui/chart';
 
-// --- 1. KEEPING YOUR EXACT INTERFACE ---
 interface PerformanceChartProps {
     data: Array<{
         date: string;
@@ -12,20 +11,22 @@ interface PerformanceChartProps {
         details?: Array<{ habit: { name: string }; done: boolean }>;
         [key: string]: any;
     }>;
-    className?: string; // Made optional to match your usage, but defaults provided below
+    className?: string;
     showGrid?: boolean;
     color?: string;
     onDataSelect?: (data: any) => void;
 }
 
-// --- 2. KEEPING YOUR EXACT TOOLTIP LOGIC ---
+// Adapted CustomTooltip using the user's logic but compatible with shadcn ChartTooltip
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
+        // Filter only completed habits for the tooltip list
         const completedHabits = data.details?.filter((d: any) => d.done) || [];
 
         return (
             <div className="bg-graphite-900/90 backdrop-blur-md border border-white/10 p-3 rounded-xl shadow-2xl min-w-[150px] animate-in fade-in zoom-in-95 duration-200 z-50">
+                {/* Header */}
                 <div className="flex justify-between items-start mb-2 border-b border-white/10 pb-2">
                     <div>
                         <p className="text-[10px] text-graphite-400 font-bold uppercase tracking-wider">
@@ -38,6 +39,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                     <div className={`w-2 h-2 rounded-full mt-1 ${payload[0].value >= 80 ? 'bg-bali-500' : 'bg-pacific-500'}`}></div>
                 </div>
 
+                {/* Micro Habit List */}
                 <div className="space-y-1.5">
                     {completedHabits.length > 0 ? (
                         <>
@@ -65,7 +67,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-// --- 3. MINIMAL CONFIG FOR SHADCN (REQUIRED) ---
 const chartConfig = {
     score: { label: 'Performance', color: 'hsl(var(--primary))' },
 } satisfies ChartConfig;
@@ -74,10 +75,9 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
     data,
     className = "w-full h-[300px]",
     showGrid = true,
-    color = "#0ea5e9",
+    color = "#0ea5e9", // Pacific-500
     onDataSelect
 }) => {
-    // --- 4. EXACT SAME EMPTY STATE ---
     if (!data || data.length === 0) {
         return (
             <div className={`flex items-center justify-center bg-graphite-50 dark:bg-graphite-950 border border-dashed border-graphite-200 dark:border-graphite-800 rounded-xl ${className}`}>
@@ -86,14 +86,12 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
         );
     }
 
-    // --- 5. THE ONLY CHANGE: ChartContainer replaces ResponsiveContainer ---
-    // We keep all your inner logic (defs, XAxis, CustomTooltip) exactly the same.
     return (
         <ChartContainer config={chartConfig} className={className}>
             <AreaChart
                 accessibilityLayer
                 data={data}
-                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                margin={{ top: 10, right: 15, left: 5, bottom: 60 }} // Increased bottom margin significantly
                 onClick={(e) => {
                     if (onDataSelect && e && e.activePayload && e.activePayload[0]) {
                         onDataSelect(e.activePayload[0].payload);
@@ -108,13 +106,18 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
                 </defs>
 
                 {showGrid && (
-                    <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.2} vertical={true} horizontal={false} />
+                    <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="#52525b"
+                        opacity={0.2}
+                        vertical={false}
+                        horizontal={true}
+                    />
                 )}
 
                 <XAxis
                     dataKey="date"
                     hide={true}
-                    padding={{ left: 0, right: 0 }}
                 />
 
                 <YAxis
@@ -128,8 +131,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({
                     tickFormatter={(val) => `${val}%`}
                 />
 
-                {/* Using YOUR exact CustomTooltip */}
-                <Tooltip
+                <ChartTooltip
                     content={<CustomTooltip />}
                     cursor={{ stroke: color, strokeWidth: 1, strokeDasharray: '4 4', opacity: 0.5 }}
                     wrapperStyle={{ zIndex: 100 }}
