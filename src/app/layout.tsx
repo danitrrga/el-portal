@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
