@@ -163,8 +163,8 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
                 </div>
 
                 <div className="mb-9 text-center">
-                  <h2 className="text-[18px] font-bold text-white tracking-wide mb-1.5">{isSignUp ? "Initialize Identity" : "Authorize Access"}</h2>
-                  <p className="text-white/20 text-[10px] leading-relaxed max-w-[220px] mx-auto">Access your secure encrypted performance hub.</p>
+                  <h2 className="text-[18px] font-bold text-white tracking-wide mb-1.5">{isSignUp ? "Sign Up" : "Log in"}</h2>
+                  <p className="text-white/40 text-[10px] leading-relaxed max-w-[220px] mx-auto">Access your secure encrypted performance hub.</p>
                 </div>
 
                 {error && (
@@ -178,7 +178,7 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
                   {/* Email Input Field */}
                   <div className="relative h-[54px] group/input">
                     <div className="absolute left-[18px] top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10 h-4 w-4">
-                      <Mail className="w-full h-full text-white/10 group-focus-within/input:text-pacific-400 transition-colors" />
+                      <Mail className="w-full h-full text-white/20 group-focus-within/input:text-pacific-400 transition-colors" />
                     </div>
                     <input
                       type="email"
@@ -186,14 +186,14 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email address"
                       required
-                      className="w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-5 text-white placeholder:text-white/10 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
+                      className="w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-5 text-white placeholder:text-white/20 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
                     />
                   </div>
 
                   {/* Password Input Field */}
                   <div className="relative h-[54px] group/input">
                     <div className="absolute left-[18px] top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10 h-4 w-4">
-                      <Lock className="w-full h-full text-white/10 group-focus-within/input:text-pacific-400 transition-colors" />
+                      <Lock className="w-full h-full text-white/20 group-focus-within/input:text-pacific-400 transition-colors" />
                     </div>
                     <input
                       type={showPassword ? "text" : "password"}
@@ -201,7 +201,7 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Password"
                       required
-                      className="w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-[52px] text-white placeholder:text-white/10 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
+                      className="w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-[52px] text-white placeholder:text-white/20 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
                     />
                     <button
                       type="button"
@@ -250,7 +250,7 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
                     onClick={() => setIsSignUp(!isSignUp)}
                     className="text-white/15 text-[8.5px] uppercase tracking-[0.5em] font-bold hover:text-pacific-400 transition-colors pl-[0.5em]"
                   >
-                    {isSignUp ? "Identity Exists? Access" : "Request Portal Access"}
+                    {isSignUp ? "Already have an account? Log in" : "Don't have an account? Sign up"}
                   </button>
                 </div>
               </div>

@@ -2,37 +2,58 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabaseService } from '@/lib/supabaseService';
-import { Habit, HabitLog, Version, Cycle, Goal, GoalType } from '@/types/types';
-import { Check, Target, Calendar, TrendingUp, Flame, Trophy, Layers, Plus, ChevronDown, ChevronUp, BookOpen, AlertTriangle } from 'lucide-react';
+import { Cycle, Goal, Habit, GoalType, HabitLog, Version } from '@/types/types';
+import { Brain, Target, CheckCircle, ChevronDown, ChevronUp, Check, RefreshCw, TrendingUp, Plus, Calendar, Layers, Flame, Trophy, BookOpen, AlertTriangle } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PerformanceChart with no SSR - Recharts doesn't work with SSR
+const PerformanceChart = dynamic(
+  () => import('@/components/PerformanceChart').then(mod => ({ default: mod.PerformanceChart })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-full w-full flex items-center justify-center">
+        <div className="animate-spin">
+          <RefreshCw size={24} className="text-graphite-400" />
+        </div>
+      </div>
+    )
+  }
+);
+
 import { NewVersionModal } from '@/components/NewVersionModal';
-import { PerformanceChart } from '@/components/PerformanceChart';
 import { ProgressArc } from '@/components/ProgressArc';
 
 type ChartView = 'week' | '30d' | 'cycle';
 
-const Dashboard: React.FC = () => {
-  const [data, setData] = useState<{
-    version: Version | null;
-    cycle: Cycle | null;
-    habits: Habit[];
-    todayLogs: HabitLog[];
-    habitStats: Record<string, { currentStreak: number; maxStreak: number }>;
-    goals: Goal[];
-  } | null>(null);
+interface DashboardData {
+  version: Version | null;
+  cycle: Cycle | null;
+  habits: Habit[];
+  todayLogs: HabitLog[];
+  habitStats: Record<string, { currentStreak: number; maxStreak: number }>;
+  goals: Goal[];
+}
 
+const Dashboard: React.FC = () => {
+  const [data, setData] = useState<DashboardData | null>(null);
   const [history, setHistory] = useState<{ date: string; score: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentScore, setCurrentScore] = useState(0);
-  const [showNewVersion, setShowNewVersion] = useState(false);
-  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+  const [togglingHabits, setTogglingHabits] = useState<Set<string>>(new Set());
   const [chartView, setChartView] = useState<ChartView>('week');
+  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+  const [showNewVersion, setShowNewVersion] = useState(false);
 
   const loadData = async () => {
     try {
+      await supabaseService.seedDefaultArchives();
       const dashboardData = await supabaseService.getDashboardData();
       const historyData = await supabaseService.getHistoryData();
       setData(dashboardData);
       setHistory(historyData.dailyScores);
+      console.log('Dashboard Data Loaded:', dashboardData);
+      console.log('History Data Loaded:', historyData.dailyScores);
       setCurrentScore(supabaseService.calculateDailyScore(dashboardData.habits, dashboardData.todayLogs));
       setLoading(false);
     } catch (err) {
@@ -45,20 +66,48 @@ const Dashboard: React.FC = () => {
 
   const handleToggleHabit = async (habitId: string, currentStatus: boolean) => {
     if (!data) return;
+
+    // Prevent double-clicking while toggle is in progress
+    if (togglingHabits.has(habitId)) return;
+
     const newStatus = !currentStatus;
-    const updatedLogs = newStatus
-      ? [...data.todayLogs, { id: 'temp', habit_id: habitId, date: '', status: true }]
-      : data.todayLogs.filter(l => l.habit_id !== habitId);
 
-    setData({ ...data, todayLogs: updatedLogs });
-    const newScore = supabaseService.calculateDailyScore(data.habits, updatedLogs);
-    setCurrentScore(newScore);
+    // Mark this habit as being toggled
+    setTogglingHabits(prev => new Set(prev).add(habitId));
 
-    const todayStr = new Date().toISOString().split('T')[0];
-    setHistory(prev => prev.map(d => d.date === todayStr ? { ...d, score: newScore } : d));
+    try {
+      // Optimistic UI update
+      const updatedLogs = newStatus
+        ? [...data.todayLogs, { id: 'temp', habit_id: habitId, date: '', status: true }]
+        : data.todayLogs.filter(l => l.habit_id !== habitId);
 
-    await supabaseService.toggleHabit(habitId, newStatus);
-    await loadData();
+      setData({ ...data, todayLogs: updatedLogs });
+      const newScore = supabaseService.calculateDailyScore(data.habits, updatedLogs);
+      setCurrentScore(newScore);
+
+      const todayStr = supabaseService.getLocalDateString();
+      setHistory(prev => prev.map(d => d.date === todayStr ? { ...d, score: newScore } : d));
+
+      // Perform database update
+      await supabaseService.toggleHabit(habitId, newStatus);
+
+      // Efficiently update only the affected data instead of full reload
+      const dashboardData = await supabaseService.getDashboardData();
+      setData(dashboardData);
+      setCurrentScore(supabaseService.calculateDailyScore(dashboardData.habits, dashboardData.todayLogs));
+
+    } catch (error) {
+      console.error('Error toggling habit:', error);
+      // Revert optimistic update on error
+      await loadData();
+    } finally {
+      // Remove from toggling set
+      setTogglingHabits(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(habitId);
+        return newSet;
+      });
+    }
   };
 
   const toggleProject = (id: string) => {
@@ -128,23 +177,27 @@ const Dashboard: React.FC = () => {
       for (let i = 0; i < 7; i++) {
         const d = new Date(monday);
         d.setDate(monday.getDate() + i);
-        weekDays.push(d.toISOString().split('T')[0]);
+        weekDays.push(supabaseService.getLocalDateString(d));
       }
 
       return weekDays.map(dateStr => {
         const existing = history.find(h => h.date === dateStr);
         return existing || { date: dateStr, score: 0 };
       });
-    } else if (chartView === '30d') {
-      return history.slice(-30);
-    } else {
-      if (!data.cycle) return history.slice(-14);
-      const cycleStart = new Date(data.cycle.start_date);
-      const cycleEnd = new Date(data.cycle.end_date);
-      return history.filter(h => {
-        const d = new Date(h.date);
-        return d >= cycleStart && d <= cycleEnd;
-      });
+    }
+    else if (chartView === '30d') {
+      const sorted = [...history].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      return sorted.slice(0, 30).reverse();
+    }
+    else {
+      // Cycle View
+      if (!data.cycle) return [...history].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 14).reverse();
+
+      const start = data.cycle.start_date;
+      const end = data.cycle.end_date;
+
+      const cycleData = history.filter(h => h.date >= start && h.date <= end);
+      return [...cycleData].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     }
   };
 
@@ -235,11 +288,13 @@ const Dashboard: React.FC = () => {
             {data.habits.map((habit) => {
               const isDone = data.todayLogs.some(l => l.habit_id === habit.id && l.status);
               const stats = data.habitStats[habit.id] || { currentStreak: 0, maxStreak: 0 };
+              const isToggling = togglingHabits.has(habit.id);
               return (
                 <div
                   key={habit.id}
-                  onClick={() => handleToggleHabit(habit.id, isDone)}
-                  className={`group relative cursor-pointer rounded-xl p-3 transition-all duration-300 border
+                  onClick={() => !isToggling && handleToggleHabit(habit.id, isDone)}
+                  className={`group relative rounded-xl p-3 transition-all duration-300 border
+                      ${isToggling ? 'cursor-wait opacity-60' : 'cursor-pointer'}
                       ${isDone
                       ? 'bg-bali-500/10 border-bali-500/30'
                       : 'bg-graphite-50 dark:bg-graphite-800/50 border-graphite-200 dark:border-graphite-700 hover:border-pacific-500/50 hover:shadow-sm'
@@ -441,35 +496,43 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* BOTTOM: Progress Chart - Full Width, Taller, Flex to Fill */}
-      <div className="rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-5 shadow-sm flex-1 min-h-[180px]">
-        <div className="flex items-center justify-between mb-4">
+      <div className="rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex-1 min-h-[350px] flex flex-col">
+        <div className="flex items-center justify-between mb-4 flex-shrink-0">
           <span className="text-[11px] font-bold uppercase text-graphite-500 flex items-center gap-2">
             <TrendingUp size={14} /> Progress Chart
           </span>
-          <div className="flex items-center gap-1 p-1 bg-graphite-100 dark:bg-graphite-800 rounded-lg">
+          <div className="flex gap-1 bg-graphite-100 dark:bg-graphite-800 p-1 rounded-xl">
             {(['week', '30d', 'cycle'] as ChartView[]).map((view) => (
               <button
                 key={view}
                 onClick={() => setChartView(view)}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-md transition-all ${chartView === view
-                  ? 'bg-white dark:bg-graphite-700 text-graphite-900 dark:text-white shadow-sm'
-                  : 'text-graphite-500 hover:text-graphite-700 dark:hover:text-graphite-300'
+                className={`px-3 py-1 text-[10px] font-bold rounded-lg transition-all ${chartView === view
+                  ? 'bg-white dark:bg-graphite-700 text-pacific-600 dark:text-pacific-400 shadow-sm'
+                  : 'text-graphite-400 hover:text-graphite-600 dark:hover:text-graphite-200'
                   }`}
               >
-                {view === 'week' ? 'Week' : view === '30d' ? '30D' : 'Cycle'}
+                {view === 'week' ? 'WEEK' : view === '30d' ? '30 DAYS' : 'CYCLE'}
               </button>
             ))}
           </div>
         </div>
-        <div className="h-full min-h-[120px]">
+
+        {/* Ensure this div has a height and flex-basis */}
+        <div className="flex-1 min-h-[300px] w-full relative">
           <PerformanceChart
             data={chartData}
-            className="h-full w-full"
+            className="h-full w-full absolute inset-0"
           />
         </div>
       </div>
 
-      {showNewVersion && <NewVersionModal onClose={() => setShowNewVersion(false)} onCreate={handleCreateVersion} suggestedNumber={1} />}
+      {showNewVersion && (
+        <NewVersionModal
+          onClose={() => setShowNewVersion(false)}
+          onCreate={handleCreateVersion}
+          suggestedNumber={1}
+        />
+      )}
     </div>
   );
 };

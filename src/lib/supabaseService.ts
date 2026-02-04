@@ -16,6 +16,14 @@ export class SupabaseService {
         return session.user.id;
     }
 
+    // NEW: Helper to get YYYY-MM-DD in local time
+    getLocalDateString(date: Date = new Date()): string {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
     // Helper to get the full profile
     async getProfile(): Promise<Profile | null> {
         const userId = await this.getUserId();
@@ -215,7 +223,7 @@ export class SupabaseService {
         }
 
         // 4. Calculate Stats
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = this.getLocalDateString();
         const todayLogs = logs.filter(l => l.date === todayStr);
 
         const habitStats: Record<string, { currentStreak: number; maxStreak: number }> = {};
@@ -237,7 +245,7 @@ export class SupabaseService {
 
     async toggleHabit(habitId: string, isChecked: boolean): Promise<void> {
         const userId = await this.getUserId();
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = this.getLocalDateString();
 
         if (isChecked) {
             // INSERT log
@@ -358,11 +366,7 @@ export class SupabaseService {
 
     // -- ARCHIVES --
     async getArchives(): Promise<ArchiveItem[]> {
-        const { data } = await supabase.from('archives').select('*');
-
-        // Map content (JSONB) back to string if needed by UI types
-        // The Type definition says `content: string`. 
-        // If we stored `{markdown: "..."}`, we need to extract it.
+        const { data } = await supabase.from('archives').select('*').order('created_at', { ascending: true });
 
         return (data || []).map(row => ({
             ...row,
@@ -370,28 +374,92 @@ export class SupabaseService {
         }));
     }
 
-    async updateArchive(item: ArchiveItem): Promise<void> {
+    async updateArchive(item: ArchiveItem): Promise<{ id: string }> {
         const userId = await this.getUserId();
         const contentJson = { markdown: item.content };
+        const isNewPlaceholder = item.id.startsWith('new-') || item.id === 'placeholder';
 
-        // Check if exists
-        const { data: existing } = await supabase.from('archives').select('id').eq('id', item.id).maybeSingle();
+        // Check if exists - avoid invalid UUID query for new items
+        let existing = null;
+        if (!isNewPlaceholder) {
+            const { data } = await supabase.from('archives').select('id').eq('id', item.id).maybeSingle();
+            existing = data;
+        }
 
         if (existing) {
-            await supabase.from('archives').update({
+            const { error } = await supabase.from('archives').update({
                 type: item.type,
                 title: item.title,
                 content: contentJson
             }).eq('id', item.id);
+            if (error) throw error;
+            return { id: item.id };
         } else {
-            await supabase.from('archives').insert({
-                id: item.id, // Use client-generated ID if provided? Or let DB generate?
-                // The interface has ID. Ideally let's upsert based on ID.
+            // Remove 'temp' or 'new-' prefix if it exists to let DB generate UUID
+            const { data, error } = await supabase.from('archives').insert({
                 user_id: userId,
                 type: item.type,
                 title: item.title,
-                content: contentJson
-            });
+                content: contentJson,
+                ...(!isNewPlaceholder ? { id: item.id } : {})
+            }).select('id').single();
+
+            if (error) throw error;
+            return { id: data.id };
+        }
+    }
+
+    async deleteArchive(id: string): Promise<void> {
+        const { error } = await supabase.from('archives').delete().eq('id', id);
+        if (error) throw error;
+    }
+
+    async seedDefaultArchives(): Promise<void> {
+        const userId = await this.getUserId();
+
+        const checkType = async (type: ArchiveType) => {
+            const { data } = await supabase.from('archives').select('id').eq('user_id', userId).eq('type', type).limit(1);
+            return data && data.length > 0;
+        };
+
+        const defaults = [
+            {
+                type: ArchiveType.VISION_5Y,
+                title: 'Vision',
+                content: { markdown: '# Vision\n\nWelcome to your Vision page. This is a single-document view focused on your long-term trajectory. Use this space to map out who you want to become and what you want to achieve.' }
+            },
+            {
+                type: ArchiveType.LIFE_TODO,
+                title: 'Life Checklist',
+                content: { markdown: '# Life Checklist\n\nYour master list of personal projects and to-dos. You can use markdown to organize your life.\n\n- [ ] Example task' }
+            },
+            {
+                type: ArchiveType.THEORY_NOTES,
+                title: 'Purpose of Theory Notes',
+                content: { markdown: 'Reflect on what is preventing results, catch daily frictions/problems, and draft solutions.' }
+            },
+            {
+                type: ArchiveType.ROUTINE,
+                title: 'Morning Routine',
+                content: { markdown: '# Morning Routine:\n- [ ] Get sunlight\n- [ ] Get Water & (Creatine)\n- [ ] 20 Chin-Tucks\n- [ ] Take a look to Vision Board / Mantras\n- [ ] Meditate (5-10mins)' }
+            },
+            {
+                type: ArchiveType.ROUTINE,
+                title: 'Night Routine',
+                content: { markdown: '# Night Routine:\n- [ ] **Start at 21:15**\n    - [ ] Shut everything off → charge devices\n    - [ ] Red lights\n    - [ ] Deep Sleep playlist\n- [ ] Brush teeth + face\n- [ ] Plan tomorrow\n- [ ] Journaling\n\n**9:45PM - 10PM**\n- [ ] Read in bed\n\n**Finish before 22:30**' }
+            }
+        ];
+
+        for (const item of defaults) {
+            const exists = await checkType(item.type);
+            if (!exists) {
+                await supabase.from('archives').insert({
+                    user_id: userId,
+                    type: item.type,
+                    title: item.title,
+                    content: item.content
+                });
+            }
         }
     }
 
@@ -438,11 +506,13 @@ export class SupabaseService {
 
         // 5. Build Daily Scores
         const dailyScores = [];
+        const todayStr = this.getLocalDateString();
+
         for (let i = 0; i <= 90; i++) {
             const d = new Date(ninetyDaysAgo);
             d.setDate(d.getDate() + i);
-            const dateStr = d.toISOString().split('T')[0];
-            if (dateStr > today.toISOString().split('T')[0]) break; // Don't go into future
+            const dateStr = this.getLocalDateString(d);
+            if (dateStr > todayStr) break; // Don't go into future
 
             // Find active cycle for this date
             const activeCycle = cycles.find(c => c.start_date <= dateStr && c.end_date >= dateStr);
@@ -519,7 +589,8 @@ export class SupabaseService {
             description: updatedGoal.description,
             type: updatedGoal.type,
             subtasks: updatedGoal.subtasks, // JSONB
-            current_streak: updatedGoal.current_streak
+            current_streak: updatedGoal.current_streak,
+            linked_habit_id: updatedGoal.linked_habit_id // Fix: Was missing, causing goal-habit links to not persist
         }).eq('id', updatedGoal.id);
 
         if (error) throw error;
@@ -559,10 +630,6 @@ export class SupabaseService {
 
     async addMantra(text: string): Promise<void> {
         const userId = await this.getUserId();
-
-        // Check duplication in archives
-        // Hard to check JSONB equality easily in one query without precise structure.
-        // We'll just insert.
 
         await supabase.from('archives').insert({
             user_id: userId,

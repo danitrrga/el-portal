@@ -67,8 +67,7 @@ self.__SERVER_FILES_MANIFEST={
       "qualities": [
         75
       ],
-      "unoptimized": false,
-      "customCacheHandler": false
+      "unoptimized": false
     },
     "devIndicators": {
       "position": "bottom-left"
@@ -89,9 +88,7 @@ self.__SERVER_FILES_MANIFEST={
     "httpAgentOptions": {
       "keepAlive": true
     },
-    "logging": {
-      "browserToTerminal": "warn"
-    },
+    "logging": {},
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
@@ -153,7 +150,6 @@ self.__SERVER_FILES_MANIFEST={
       "linkNoTouchStart": false,
       "caseSensitiveRoutes": false,
       "dynamicOnHover": false,
-      "varyParams": false,
       "preloadEntriesOnStart": true,
       "clientRouterFilter": true,
       "clientRouterFilterRedirects": false,
@@ -189,10 +185,9 @@ self.__SERVER_FILES_MANIFEST={
       "authInterrupts": false,
       "webpackMemoryOptimizations": false,
       "optimizeServerReact": true,
-      "strictRouteTypes": false,
       "viewTransition": false,
       "removeUncaughtErrorAndRejectionListeners": false,
-      "validateRSCRequestHeaders": true,
+      "validateRSCRequestHeaders": false,
       "staleTimes": {
         "dynamic": 0,
         "static": 300
@@ -202,19 +197,18 @@ self.__SERVER_FILES_MANIFEST={
       "staticGenerationMaxConcurrency": 8,
       "staticGenerationMinPagesPerWorker": 25,
       "transitionIndicator": false,
-      "gestureTransition": false,
       "inlineCss": false,
       "useCache": false,
       "globalNotFound": false,
-      "browserDebugInfoInTerminal": "warn",
+      "browserDebugInfoInTerminal": false,
       "lockDistDir": true,
+      "isolatedDevBuild": true,
       "proxyClientMaxBodySize": 10485760,
       "hideLogsAfterAbort": false,
       "mcpServer": true,
       "turbopackFileSystemCacheForDev": true,
       "turbopackFileSystemCacheForBuild": false,
-      "turbopackInferModuleSideEffects": true,
-      "devCacheControlNoCache": false,
+      "turbopackInferModuleSideEffects": false,
       "optimizePackageImports": [
         "lucide-react",
         "date-fns",

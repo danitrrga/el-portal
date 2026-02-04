@@ -720,21 +720,25 @@ __turbopack_context__.s([
     ()=>PerformanceChart
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$AreaChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/chart/AreaChart.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/Area.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/XAxis.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$YAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/YAxis.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$CartesianGrid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/CartesianGrid.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/component/Tooltip.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$ResponsiveContainer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/component/ResponsiveContainer.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
 ;
 ;
 const CustomTooltip = ({ active, payload, label })=>{
     if (active && payload && payload.length) {
         const data = payload[0].payload;
+        // Filter only completed habits for the tooltip list
         const completedHabits = data.details?.filter((d)=>d.done) || [];
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "bg-graphite-900/90 backdrop-blur-md border border-white/10 p-3 rounded-xl shadow-2xl min-w-[150px] animate-in fade-in zoom-in-95 duration-200",
+            className: "bg-graphite-900/90 backdrop-blur-md border border-white/10 p-3 rounded-xl shadow-2xl min-w-[150px] animate-in fade-in zoom-in-95 duration-200 z-50",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex justify-between items-start mb-2 border-b border-white/10 pb-2",
@@ -745,42 +749,41 @@ const CustomTooltip = ({ active, payload, label })=>{
                                     className: "text-[10px] text-graphite-400 font-bold uppercase tracking-wider",
                                     children: new Date(label).toLocaleDateString('en-US', {
                                         month: 'short',
-                                        day: 'numeric',
-                                        weekday: 'short'
+                                        day: 'numeric'
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 27,
+                                    lineNumber: 30,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     className: "text-xl font-bold text-white flex items-center gap-1 leading-none mt-1",
                                     children: [
-                                        payload[0].value,
+                                        Math.round(payload[0].value),
                                         "%"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 30,
+                                    lineNumber: 33,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 26,
+                            lineNumber: 29,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: `w-2 h-2 rounded-full mt-1 ${payload[0].value >= 80 ? 'bg-bali-500' : 'bg-pacific-500'}`
                         }, void 0, false, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 34,
+                            lineNumber: 37,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                    lineNumber: 25,
+                    lineNumber: 28,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -794,7 +797,7 @@ const CustomTooltip = ({ active, payload, label })=>{
                                             className: "w-1 h-1 rounded-full bg-white/50 shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                                            lineNumber: 42,
+                                            lineNumber: 46,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -802,13 +805,13 @@ const CustomTooltip = ({ active, payload, label })=>{
                                             children: detail.habit.name
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                                            lineNumber: 43,
+                                            lineNumber: 47,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, i, true, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 41,
+                                    lineNumber: 45,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))),
                             completedHabits.length > 4 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -816,11 +819,11 @@ const CustomTooltip = ({ active, payload, label })=>{
                                 children: [
                                     "+ ",
                                     completedHabits.length - 4,
-                                    " more"
+                                    " more completed"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/PerformanceChart.tsx",
-                                lineNumber: 49,
+                                lineNumber: 53,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
@@ -829,198 +832,271 @@ const CustomTooltip = ({ active, payload, label })=>{
                         children: "No habits recorded."
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 55,
+                        lineNumber: 59,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                    lineNumber: 37,
+                    lineNumber: 41,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/PerformanceChart.tsx",
-            lineNumber: 24,
+            lineNumber: 26,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
     return null;
 };
 _c = CustomTooltip;
-// Custom X-axis tick formatter
-const formatXAxisLabel = (dateStr)=>{
-    if (!dateStr) return '';
-    const d = new Date(dateStr);
-    const day = d.getDate();
-    const weekday = d.toLocaleDateString('en-US', {
-        weekday: 'short'
-    }).slice(0, 2).toUpperCase();
-    return `${weekday}`;
-};
-const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, color = "#0ea5e9", onDataSelect })=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: `select-none ${className}`,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$ResponsiveContainer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ResponsiveContainer"], {
-            width: "100%",
-            height: "100%",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$AreaChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AreaChart"], {
-                data: data,
-                margin: {
-                    top: 10,
-                    right: 10,
-                    left: 5,
-                    bottom: 20
-                },
-                onClick: (e)=>{
-                    if (onDataSelect && e && e.activePayload && e.activePayload[0]) {
-                        onDataSelect(e.activePayload[0].payload);
-                    }
-                },
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("linearGradient", {
-                            id: "colorScore",
-                            x1: "0",
-                            y1: "0",
-                            x2: "0",
-                            y2: "1",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                    offset: "5%",
-                                    stopColor: color,
-                                    stopOpacity: 0.25
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 94,
-                                    columnNumber: 29
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
-                                    offset: "95%",
-                                    stopColor: color,
-                                    stopOpacity: 0
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 95,
-                                    columnNumber: 29
-                                }, ("TURBOPACK compile-time value", void 0))
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 93,
-                            columnNumber: 25
-                        }, ("TURBOPACK compile-time value", void 0))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 92,
-                        columnNumber: 21
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    showGrid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$CartesianGrid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CartesianGrid"], {
-                        strokeDasharray: "3 3",
-                        stroke: "#52525b",
-                        opacity: 0.3,
-                        vertical: false
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 100,
-                        columnNumber: 25
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["XAxis"], {
-                        dataKey: "date",
-                        axisLine: false,
-                        tickLine: false,
-                        tick: {
-                            fill: '#a1a1aa',
-                            fontSize: 10,
-                            fontWeight: 600,
-                            fontFamily: 'monospace'
-                        },
-                        tickFormatter: formatXAxisLabel,
-                        interval: 0,
-                        dy: 10
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 108,
-                        columnNumber: 21
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$YAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["YAxis"], {
-                        axisLine: false,
-                        tickLine: false,
-                        tick: {
-                            fill: '#a1a1aa',
-                            fontSize: 12,
-                            fontWeight: 600,
-                            fontFamily: 'monospace'
-                        },
-                        domain: [
-                            0,
-                            100
-                        ],
-                        ticks: [
-                            0,
-                            50,
-                            100
-                        ],
-                        width: 45,
-                        interval: 0,
-                        dx: -5
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 118,
-                        columnNumber: 21
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tooltip"], {
-                        content: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CustomTooltip, {}, void 0, false, {
-                            fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 130,
-                            columnNumber: 34
-                        }, void 0),
-                        cursor: {
-                            stroke: color,
-                            strokeWidth: 1,
-                            strokeDasharray: '4 4',
-                            opacity: 0.5
-                        }
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 129,
-                        columnNumber: 21
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Area"], {
-                        type: "monotone",
-                        dataKey: "score",
-                        stroke: color,
-                        strokeWidth: 2.5,
-                        fillOpacity: 1,
-                        fill: "url(#colorScore)",
-                        activeDot: {
-                            r: 6,
-                            strokeWidth: 2,
-                            fill: '#fff',
-                            stroke: color
-                        },
-                        animationDuration: 800
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 134,
-                        columnNumber: 21
-                    }, ("TURBOPACK compile-time value", void 0))
-                ]
-            }, void 0, true, {
+const PerformanceChart = ({ data, className = "w-full", showGrid = true, color = "#0ea5e9", onDataSelect })=>{
+    _s();
+    const [isMounted, setIsMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [dimensions, setDimensions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        width: 0,
+        height: 300
+    });
+    const containerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "PerformanceChart.useEffect": ()=>{
+            setIsMounted(true);
+            if (!containerRef.current) return;
+            const resizeObserver = new ResizeObserver({
+                "PerformanceChart.useEffect": (entries)=>{
+                    if (!entries[0]) return;
+                    const { width, height } = entries[0].contentRect;
+                    setDimensions({
+                        width: width || 0,
+                        height: height > 100 ? height : 300
+                    });
+                }
+            }["PerformanceChart.useEffect"]);
+            resizeObserver.observe(containerRef.current);
+            return ({
+                "PerformanceChart.useEffect": ()=>resizeObserver.disconnect()
+            })["PerformanceChart.useEffect"];
+        }
+    }["PerformanceChart.useEffect"], []);
+    if (!isMounted) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            ref: containerRef,
+            className: `flex items-center justify-center bg-graphite-50/50 dark:bg-graphite-800/20 rounded-xl ${className}`
+        }, void 0, false, {
+            fileName: "[project]/src/components/PerformanceChart.tsx",
+            lineNumber: 97,
+            columnNumber: 16
+        }, ("TURBOPACK compile-time value", void 0));
+    }
+    if (!data || data.length === 0) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            ref: containerRef,
+            className: `flex items-center justify-center bg-graphite-50 dark:bg-graphite-950 border border-dashed border-graphite-200 dark:border-graphite-800 rounded-xl min-h-[300px] ${className}`,
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-sm text-graphite-400 italic",
+                children: "No performance data available"
+            }, void 0, false, {
                 fileName: "[project]/src/components/PerformanceChart.tsx",
-                lineNumber: 83,
+                lineNumber: 103,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/components/PerformanceChart.tsx",
-            lineNumber: 82,
+            lineNumber: 102,
             columnNumber: 13
+        }, ("TURBOPACK compile-time value", void 0));
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        ref: containerRef,
+        className: `select-none relative w-full min-h-[200px] ${className}`,
+        children: dimensions.width > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$AreaChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AreaChart"], {
+            width: dimensions.width,
+            height: dimensions.height,
+            data: data,
+            margin: {
+                top: 10,
+                right: 10,
+                left: 0,
+                bottom: 0
+            },
+            onClick: (e)=>{
+                if (onDataSelect && e && e.activePayload && e.activePayload[0]) {
+                    onDataSelect(e.activePayload[0].payload);
+                }
+            },
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("defs", {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("filter", {
+                        id: "glow",
+                        height: "200%",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feGaussianBlur", {
+                                in: "SourceAlpha",
+                                stdDeviation: "3",
+                                result: "blur"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/PerformanceChart.tsx",
+                                lineNumber: 124,
+                                columnNumber: 29
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feFlood", {
+                                floodColor: color,
+                                floodOpacity: "0.5",
+                                result: "offsetColor"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/PerformanceChart.tsx",
+                                lineNumber: 125,
+                                columnNumber: 29
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feComposite", {
+                                in: "offsetColor",
+                                in2: "blur",
+                                operator: "in",
+                                result: "offsetBlur"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/PerformanceChart.tsx",
+                                lineNumber: 126,
+                                columnNumber: 29
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feMerge", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feMergeNode", {
+                                        in: "offsetBlur"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/PerformanceChart.tsx",
+                                        lineNumber: 128,
+                                        columnNumber: 33
+                                    }, ("TURBOPACK compile-time value", void 0)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("feMergeNode", {
+                                        in: "SourceGraphic"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/PerformanceChart.tsx",
+                                        lineNumber: 129,
+                                        columnNumber: 33
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/components/PerformanceChart.tsx",
+                                lineNumber: 127,
+                                columnNumber: 29
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/PerformanceChart.tsx",
+                        lineNumber: 123,
+                        columnNumber: 25
+                    }, ("TURBOPACK compile-time value", void 0))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 122,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0)),
+                showGrid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$CartesianGrid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CartesianGrid"], {
+                    strokeDasharray: "3 3",
+                    stroke: "#52525b",
+                    opacity: 0.4,
+                    vertical: false
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 135,
+                    columnNumber: 25
+                }, ("TURBOPACK compile-time value", void 0)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["XAxis"], {
+                    dataKey: "date",
+                    hide: true,
+                    minTickGap: 30,
+                    padding: {
+                        left: 0,
+                        right: 0
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 143,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$YAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["YAxis"], {
+                    x: -10,
+                    x2: -10,
+                    x3: -10,
+                    axisLine: true,
+                    tickLine: true,
+                    width: 40,
+                    tick: {
+                        fill: '#a1a1aa',
+                        fontSize: 10,
+                        fontWeight: 500,
+                        fontFamily: 'monospace'
+                    },
+                    domain: [
+                        0,
+                        100
+                    ],
+                    ticks: [
+                        0,
+                        25,
+                        50,
+                        75,
+                        100
+                    ],
+                    interval: 0,
+                    tickFormatter: (val)=>`${val}%`
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 150,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tooltip"], {
+                    content: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CustomTooltip, {}, void 0, false, {
+                        fileName: "[project]/src/components/PerformanceChart.tsx",
+                        lineNumber: 165,
+                        columnNumber: 34
+                    }, void 0),
+                    cursor: {
+                        stroke: color,
+                        strokeWidth: 1,
+                        strokeDasharray: '4 4',
+                        opacity: 0.5
+                    },
+                    wrapperStyle: {
+                        zIndex: 100
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 164,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Area"], {
+                    type: "monotone",
+                    dataKey: "score",
+                    stroke: color,
+                    strokeWidth: 2,
+                    fillOpacity: 1,
+                    fill: "url(#colorScore)",
+                    activeDot: {
+                        r: 5,
+                        strokeWidth: 0,
+                        fill: '#fff',
+                        stroke: 'none'
+                    },
+                    animationDuration: 1000
+                }, void 0, false, {
+                    fileName: "[project]/src/components/PerformanceChart.tsx",
+                    lineNumber: 170,
+                    columnNumber: 21
+                }, ("TURBOPACK compile-time value", void 0))
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/components/PerformanceChart.tsx",
+            lineNumber: 111,
+            columnNumber: 17
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/PerformanceChart.tsx",
-        lineNumber: 81,
+        lineNumber: 109,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s(PerformanceChart, "5Jaijy7czKLsUBcmYeEIDlvBsiM=");
 _c1 = PerformanceChart;
 var _c, _c1;
 __turbopack_context__.k.register(_c, "CustomTooltip");

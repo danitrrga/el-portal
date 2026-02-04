@@ -104,10 +104,10 @@ export interface Goal {
   description: string;
   type: GoalType;
   // For Projects
-  subtasks?: Subtask[]; 
+  subtasks?: Subtask[];
   // For Metrics
   linked_habit_id?: string;
-  current_streak?: number; 
+  current_streak?: number;
 }
 
 // -- KNOWLEDGE & ARCHIVES --
@@ -116,6 +116,7 @@ export interface ArchiveItem {
   type: ArchiveType;
   title: string;
   content: string;
+  created_at?: string;
 }
 
 // -- VISUALIZATION --

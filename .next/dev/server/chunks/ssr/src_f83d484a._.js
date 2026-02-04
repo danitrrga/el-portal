@@ -303,7 +303,7 @@ const PortalEntry = ({ onEnter })=>{
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                         className: "text-[18px] font-bold text-white tracking-wide mb-1.5",
-                                                        children: isSignUp ? "Initialize Identity" : "Authorize Access"
+                                                        children: isSignUp ? "Sign Up" : "Log in"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/PortalEntry.tsx",
                                                         lineNumber: 166,
@@ -577,7 +577,7 @@ const PortalEntry = ({ onEnter })=>{
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>setIsSignUp(!isSignUp),
                                                     className: "text-white/15 text-[8.5px] uppercase tracking-[0.5em] font-bold hover:text-pacific-400 transition-colors pl-[0.5em]",
-                                                    children: isSignUp ? "Identity Exists? Access" : "Request Portal Access"
+                                                    children: isSignUp ? "Already have an account? Log in" : "Don't have an account? Sign up"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/PortalEntry.tsx",
                                                     lineNumber: 249,
@@ -1120,10 +1120,9 @@ class SupabaseService {
     }
     // -- ARCHIVES --
     async getArchives() {
-        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('*');
-        // Map content (JSONB) back to string if needed by UI types
-        // The Type definition says `content: string`. 
-        // If we stored `{markdown: "..."}`, we need to extract it.
+        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('*').order('created_at', {
+            ascending: true
+        });
         return (data || []).map((row)=>({
                 ...row,
                 content: typeof row.content === 'object' && row.content?.markdown ? row.content.markdown : row.content
@@ -1134,23 +1133,97 @@ class SupabaseService {
         const contentJson = {
             markdown: item.content
         };
-        // Check if exists
-        const { data: existing } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('id', item.id).maybeSingle();
+        const isNewPlaceholder = item.id.startsWith('new-') || item.id === 'placeholder';
+        // Check if exists - avoid invalid UUID query for new items
+        let existing = null;
+        if (!isNewPlaceholder) {
+            const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('id', item.id).maybeSingle();
+            existing = data;
+        }
         if (existing) {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').update({
+            const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').update({
                 type: item.type,
                 title: item.title,
                 content: contentJson
             }).eq('id', item.id);
+            if (error) throw error;
+            return {
+                id: item.id
+            };
         } else {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
-                id: item.id,
-                // The interface has ID. Ideally let's upsert based on ID.
+            // Remove 'temp' or 'new-' prefix if it exists to let DB generate UUID
+            const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
                 user_id: userId,
                 type: item.type,
                 title: item.title,
-                content: contentJson
-            });
+                content: contentJson,
+                ...!isNewPlaceholder ? {
+                    id: item.id
+                } : {}
+            }).select('id').single();
+            if (error) throw error;
+            return {
+                id: data.id
+            };
+        }
+    }
+    async deleteArchive(id) {
+        const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').delete().eq('id', id);
+        if (error) throw error;
+    }
+    async seedDefaultArchives() {
+        const userId = await this.getUserId();
+        const checkType = async (type)=>{
+            const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('user_id', userId).eq('type', type).limit(1);
+            return data && data.length > 0;
+        };
+        const defaults = [
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].VISION_5Y,
+                title: 'Vision',
+                content: {
+                    markdown: '# Vision\n\nWelcome to your Vision page. This is a single-document view focused on your long-term trajectory. Use this space to map out who you want to become and what you want to achieve.'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].LIFE_TODO,
+                title: 'Life Checklist',
+                content: {
+                    markdown: '# Life Checklist\n\nYour master list of personal projects and to-dos. You can use markdown to organize your life.\n\n- [ ] Example task'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].THEORY_NOTES,
+                title: 'Purpose of Theory Notes',
+                content: {
+                    markdown: 'Reflect on what is preventing results, catch daily frictions/problems, and draft solutions.'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].ROUTINE,
+                title: 'Morning Routine',
+                content: {
+                    markdown: '# Morning Routine:\n- [ ] Get sunlight\n- [ ] Get Water & (Creatine)\n- [ ] 20 Chin-Tucks\n- [ ] Take a look to Vision Board / Mantras\n- [ ] Meditate (5-10mins)'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].ROUTINE,
+                title: 'Night Routine',
+                content: {
+                    markdown: '# Night Routine:\n- [ ] **Start at 21:15**\n    - [ ] Shut everything off → charge devices\n    - [ ] Red lights\n    - [ ] Deep Sleep playlist\n- [ ] Brush teeth + face\n- [ ] Plan tomorrow\n- [ ] Journaling\n\n**9:45PM - 10PM**\n- [ ] Read in bed\n\n**Finish before 22:30**'
+                }
+            }
+        ];
+        for (const item of defaults){
+            const exists = await checkType(item.type);
+            if (!exists) {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
+                    user_id: userId,
+                    type: item.type,
+                    title: item.title,
+                    content: item.content
+                });
+            }
         }
     }
     // -- MISC Helpers --
@@ -1247,7 +1320,8 @@ class SupabaseService {
             description: updatedGoal.description,
             type: updatedGoal.type,
             subtasks: updatedGoal.subtasks,
-            current_streak: updatedGoal.current_streak
+            current_streak: updatedGoal.current_streak,
+            linked_habit_id: updatedGoal.linked_habit_id // Fix: Was missing, causing goal-habit links to not persist
         }).eq('id', updatedGoal.id);
         if (error) throw error;
     }
@@ -1274,9 +1348,6 @@ class SupabaseService {
     }
     async addMantra(text) {
         const userId = await this.getUserId();
-        // Check duplication in archives
-        // Hard to check JSONB equality easily in one query without precise structure.
-        // We'll just insert.
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
             user_id: userId,
             type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ArchiveType"].MANTRA_BANK,

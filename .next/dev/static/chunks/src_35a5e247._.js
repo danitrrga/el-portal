@@ -311,14 +311,14 @@ const PortalEntry = ({ onEnter })=>{
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                         className: "text-[18px] font-bold text-white tracking-wide mb-1.5",
-                                                        children: isSignUp ? "Initialize Identity" : "Authorize Access"
+                                                        children: isSignUp ? "Sign Up" : "Log in"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/PortalEntry.tsx",
                                                         lineNumber: 166,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-white/20 text-[10px] leading-relaxed max-w-[220px] mx-auto",
+                                                        className: "text-white/40 text-[10px] leading-relaxed max-w-[220px] mx-auto",
                                                         children: "Access your secure encrypted performance hub."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/PortalEntry.tsx",
@@ -365,7 +365,7 @@ const PortalEntry = ({ onEnter })=>{
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "absolute left-[18px] top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10 h-4 w-4",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__["Mail"], {
-                                                                    className: "w-full h-full text-white/10 group-focus-within/input:text-pacific-400 transition-colors"
+                                                                    className: "w-full h-full text-white/20 group-focus-within/input:text-pacific-400 transition-colors"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/PortalEntry.tsx",
                                                                     lineNumber: 181,
@@ -382,7 +382,7 @@ const PortalEntry = ({ onEnter })=>{
                                                                 onChange: (e)=>setEmail(e.target.value),
                                                                 placeholder: "Email address",
                                                                 required: true,
-                                                                className: "w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-5 text-white placeholder:text-white/10 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
+                                                                className: "w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-5 text-white placeholder:text-white/20 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/PortalEntry.tsx",
                                                                 lineNumber: 183,
@@ -400,7 +400,7 @@ const PortalEntry = ({ onEnter })=>{
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "absolute left-[18px] top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10 h-4 w-4",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__["Lock"], {
-                                                                    className: "w-full h-full text-white/10 group-focus-within/input:text-pacific-400 transition-colors"
+                                                                    className: "w-full h-full text-white/20 group-focus-within/input:text-pacific-400 transition-colors"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/PortalEntry.tsx",
                                                                     lineNumber: 196,
@@ -417,7 +417,7 @@ const PortalEntry = ({ onEnter })=>{
                                                                 onChange: (e)=>setPassword(e.target.value),
                                                                 placeholder: "Password",
                                                                 required: true,
-                                                                className: "w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-[52px] text-white placeholder:text-white/10 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
+                                                                className: "w-full h-full bg-black/40 border border-white/5 rounded-[18px] pl-[52px] pr-[52px] text-white placeholder:text-white/20 text-xs focus:outline-none focus:border-pacific-500/30 focus:bg-black/60 transition-all shadow-[inset_0_1px_6px_rgba(0,0,0,0.6)]"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/PortalEntry.tsx",
                                                                 lineNumber: 198,
@@ -585,7 +585,7 @@ const PortalEntry = ({ onEnter })=>{
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>setIsSignUp(!isSignUp),
                                                     className: "text-white/15 text-[8.5px] uppercase tracking-[0.5em] font-bold hover:text-pacific-400 transition-colors pl-[0.5em]",
-                                                    children: isSignUp ? "Identity Exists? Access" : "Request Portal Access"
+                                                    children: isSignUp ? "Already have an account? Log in" : "Don't have an account? Sign up"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/PortalEntry.tsx",
                                                     lineNumber: 249,
@@ -850,6 +850,13 @@ class SupabaseService {
         if (!session?.user) throw new Error("Not authenticated");
         return session.user.id;
     }
+    // NEW: Helper to get YYYY-MM-DD in local time
+    getLocalDateString(date = new Date()) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
     // Helper to get the full profile
     async getProfile() {
         const userId = await this.getUserId();
@@ -1011,7 +1018,7 @@ class SupabaseService {
             logs = lData || [];
         }
         // 4. Calculate Stats
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = this.getLocalDateString();
         const todayLogs = logs.filter((l)=>l.date === todayStr);
         const habitStats = {};
         habits.forEach((h)=>{
@@ -1029,7 +1036,7 @@ class SupabaseService {
     // -- ACTIONS --
     async toggleHabit(habitId, isChecked) {
         const userId = await this.getUserId();
-        const todayStr = new Date().toISOString().split('T')[0];
+        const todayStr = this.getLocalDateString();
         if (isChecked) {
             // INSERT log
             const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('habit_logs').insert({
@@ -1138,10 +1145,9 @@ class SupabaseService {
     }
     // -- ARCHIVES --
     async getArchives() {
-        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('*');
-        // Map content (JSONB) back to string if needed by UI types
-        // The Type definition says `content: string`. 
-        // If we stored `{markdown: "..."}`, we need to extract it.
+        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('*').order('created_at', {
+            ascending: true
+        });
         return (data || []).map((row)=>({
                 ...row,
                 content: typeof row.content === 'object' && row.content?.markdown ? row.content.markdown : row.content
@@ -1152,23 +1158,97 @@ class SupabaseService {
         const contentJson = {
             markdown: item.content
         };
-        // Check if exists
-        const { data: existing } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('id', item.id).maybeSingle();
+        const isNewPlaceholder = item.id.startsWith('new-') || item.id === 'placeholder';
+        // Check if exists - avoid invalid UUID query for new items
+        let existing = null;
+        if (!isNewPlaceholder) {
+            const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('id', item.id).maybeSingle();
+            existing = data;
+        }
         if (existing) {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').update({
+            const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').update({
                 type: item.type,
                 title: item.title,
                 content: contentJson
             }).eq('id', item.id);
+            if (error) throw error;
+            return {
+                id: item.id
+            };
         } else {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
-                id: item.id,
-                // The interface has ID. Ideally let's upsert based on ID.
+            // Remove 'temp' or 'new-' prefix if it exists to let DB generate UUID
+            const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
                 user_id: userId,
                 type: item.type,
                 title: item.title,
-                content: contentJson
-            });
+                content: contentJson,
+                ...!isNewPlaceholder ? {
+                    id: item.id
+                } : {}
+            }).select('id').single();
+            if (error) throw error;
+            return {
+                id: data.id
+            };
+        }
+    }
+    async deleteArchive(id) {
+        const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').delete().eq('id', id);
+        if (error) throw error;
+    }
+    async seedDefaultArchives() {
+        const userId = await this.getUserId();
+        const checkType = async (type)=>{
+            const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').select('id').eq('user_id', userId).eq('type', type).limit(1);
+            return data && data.length > 0;
+        };
+        const defaults = [
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].VISION_5Y,
+                title: 'Vision',
+                content: {
+                    markdown: '# Vision\n\nWelcome to your Vision page. This is a single-document view focused on your long-term trajectory. Use this space to map out who you want to become and what you want to achieve.'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].LIFE_TODO,
+                title: 'Life Checklist',
+                content: {
+                    markdown: '# Life Checklist\n\nYour master list of personal projects and to-dos. You can use markdown to organize your life.\n\n- [ ] Example task'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].THEORY_NOTES,
+                title: 'Purpose of Theory Notes',
+                content: {
+                    markdown: 'Reflect on what is preventing results, catch daily frictions/problems, and draft solutions.'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].ROUTINE,
+                title: 'Morning Routine',
+                content: {
+                    markdown: '# Morning Routine:\n- [ ] Get sunlight\n- [ ] Get Water & (Creatine)\n- [ ] 20 Chin-Tucks\n- [ ] Take a look to Vision Board / Mantras\n- [ ] Meditate (5-10mins)'
+                }
+            },
+            {
+                type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].ROUTINE,
+                title: 'Night Routine',
+                content: {
+                    markdown: '# Night Routine:\n- [ ] **Start at 21:15**\n    - [ ] Shut everything off → charge devices\n    - [ ] Red lights\n    - [ ] Deep Sleep playlist\n- [ ] Brush teeth + face\n- [ ] Plan tomorrow\n- [ ] Journaling\n\n**9:45PM - 10PM**\n- [ ] Read in bed\n\n**Finish before 22:30**'
+                }
+            }
+        ];
+        for (const item of defaults){
+            const exists = await checkType(item.type);
+            if (!exists) {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
+                    user_id: userId,
+                    type: item.type,
+                    title: item.title,
+                    content: item.content
+                });
+            }
         }
     }
     // -- MISC Helpers --
@@ -1199,11 +1279,12 @@ class SupabaseService {
         });
         // 5. Build Daily Scores
         const dailyScores = [];
+        const todayStr = this.getLocalDateString();
         for(let i = 0; i <= 90; i++){
             const d = new Date(ninetyDaysAgo);
             d.setDate(d.getDate() + i);
-            const dateStr = d.toISOString().split('T')[0];
-            if (dateStr > today.toISOString().split('T')[0]) break; // Don't go into future
+            const dateStr = this.getLocalDateString(d);
+            if (dateStr > todayStr) break; // Don't go into future
             // Find active cycle for this date
             const activeCycle = cycles.find((c)=>c.start_date <= dateStr && c.end_date >= dateStr);
             // Find habits linked to this cycle
@@ -1265,7 +1346,8 @@ class SupabaseService {
             description: updatedGoal.description,
             type: updatedGoal.type,
             subtasks: updatedGoal.subtasks,
-            current_streak: updatedGoal.current_streak
+            current_streak: updatedGoal.current_streak,
+            linked_habit_id: updatedGoal.linked_habit_id // Fix: Was missing, causing goal-habit links to not persist
         }).eq('id', updatedGoal.id);
         if (error) throw error;
     }
@@ -1292,9 +1374,6 @@ class SupabaseService {
     }
     async addMantra(text) {
         const userId = await this.getUserId();
-        // Check duplication in archives
-        // Hard to check JSONB equality easily in one query without precise structure.
-        // We'll just insert.
         await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('archives').insert({
             user_id: userId,
             type: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$types$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ArchiveType"].MANTRA_BANK,

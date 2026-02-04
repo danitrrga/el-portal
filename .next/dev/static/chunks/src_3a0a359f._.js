@@ -7,6 +7,7 @@ __turbopack_context__.s([
     ()=>PerformanceChart
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$AreaChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/chart/AreaChart.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/Area.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/XAxis.js [app-client] (ecmascript)");
@@ -14,6 +15,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$CartesianGrid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/cartesian/CartesianGrid.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/component/Tooltip.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$ResponsiveContainer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/recharts/es6/component/ResponsiveContainer.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
 ;
 ;
 const CustomTooltip = ({ active, payload, label })=>{
@@ -37,7 +41,7 @@ const CustomTooltip = ({ active, payload, label })=>{
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 27,
+                                    lineNumber: 28,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -48,26 +52,26 @@ const CustomTooltip = ({ active, payload, label })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 30,
+                                    lineNumber: 31,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 26,
+                            lineNumber: 27,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: `w-2 h-2 rounded-full mt-1 ${payload[0].value >= 80 ? 'bg-bali-500' : 'bg-pacific-500'}`
                         }, void 0, false, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 34,
+                            lineNumber: 35,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                    lineNumber: 25,
+                    lineNumber: 26,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -81,7 +85,7 @@ const CustomTooltip = ({ active, payload, label })=>{
                                             className: "w-1 h-1 rounded-full bg-white/50 shrink-0"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                                            lineNumber: 42,
+                                            lineNumber: 43,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -89,13 +93,13 @@ const CustomTooltip = ({ active, payload, label })=>{
                                             children: detail.habit.name
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                                            lineNumber: 43,
+                                            lineNumber: 44,
                                             columnNumber: 37
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, i, true, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 41,
+                                    lineNumber: 42,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))),
                             completedHabits.length > 4 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -107,7 +111,7 @@ const CustomTooltip = ({ active, payload, label })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/PerformanceChart.tsx",
-                                lineNumber: 49,
+                                lineNumber: 50,
                                 columnNumber: 33
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
@@ -116,18 +120,18 @@ const CustomTooltip = ({ active, payload, label })=>{
                         children: "No habits recorded."
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 55,
+                        lineNumber: 56,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                    lineNumber: 37,
+                    lineNumber: 38,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/PerformanceChart.tsx",
-            lineNumber: 24,
+            lineNumber: 25,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -137,26 +141,64 @@ _c = CustomTooltip;
 // Custom X-axis tick formatter
 const formatXAxisLabel = (dateStr)=>{
     if (!dateStr) return '';
-    const d = new Date(dateStr);
-    const day = d.getDate();
-    const weekday = d.toLocaleDateString('en-US', {
-        weekday: 'short'
-    }).slice(0, 2).toUpperCase();
-    return `${weekday}`;
+    try {
+        const d = new Date(dateStr);
+        const weekday = d.toLocaleDateString('en-US', {
+            weekday: 'short'
+        }).slice(0, 2).toUpperCase();
+        return `${weekday}`;
+    } catch (e) {
+        return '';
+    }
 };
 const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, color = "#0ea5e9", onDataSelect })=>{
+    _s();
+    // Debug logging
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "PerformanceChart.useEffect": ()=>{
+            console.log('PerformanceChart mounted');
+            console.log('Chart data:', data);
+            console.log('Data length:', data?.length);
+            console.log('First item:', data?.[0]);
+        }
+    }["PerformanceChart.useEffect"], [
+        data
+    ]);
+    // Return placeholder if no data
+    if (!data || data.length === 0) {
+        console.log('No data - showing placeholder');
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: `${className} flex items-center justify-center bg-graphite-50 dark:bg-graphite-950 rounded-xl border border-dashed border-graphite-200 dark:border-graphite-800`,
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-sm text-graphite-400 italic",
+                children: "No data to display"
+            }, void 0, false, {
+                fileName: "[project]/src/components/PerformanceChart.tsx",
+                lineNumber: 97,
+                columnNumber: 17
+            }, ("TURBOPACK compile-time value", void 0))
+        }, void 0, false, {
+            fileName: "[project]/src/components/PerformanceChart.tsx",
+            lineNumber: 96,
+            columnNumber: 13
+        }, ("TURBOPACK compile-time value", void 0));
+    }
+    console.log('Rendering chart with', data.length, 'data points');
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `select-none ${className}`,
+        style: {
+            minHeight: '200px'
+        },
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$ResponsiveContainer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ResponsiveContainer"], {
             width: "100%",
             height: "100%",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$chart$2f$AreaChart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AreaChart"], {
                 data: data,
                 margin: {
-                    top: 10,
-                    right: 10,
-                    left: 5,
-                    bottom: 20
+                    top: 15,
+                    right: 20,
+                    left: 10,
+                    bottom: 10
                 },
                 onClick: (e)=>{
                     if (onDataSelect && e && e.activePayload && e.activePayload[0]) {
@@ -178,7 +220,7 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                                     stopOpacity: 0.25
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 118,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
@@ -187,18 +229,18 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                                     stopOpacity: 0
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/PerformanceChart.tsx",
-                                    lineNumber: 95,
+                                    lineNumber: 119,
                                     columnNumber: 29
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 93,
+                            lineNumber: 117,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 92,
+                        lineNumber: 116,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     showGrid && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$CartesianGrid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CartesianGrid"], {
@@ -208,7 +250,7 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                         vertical: false
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 100,
+                        lineNumber: 124,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$XAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["XAxis"], {
@@ -222,11 +264,11 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                             fontFamily: 'monospace'
                         },
                         tickFormatter: formatXAxisLabel,
-                        interval: 0,
-                        dy: 10
+                        interval: "preserveStartEnd",
+                        height: 40
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 108,
+                        lineNumber: 132,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$YAxis$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["YAxis"], {
@@ -234,7 +276,7 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                         tickLine: false,
                         tick: {
                             fill: '#a1a1aa',
-                            fontSize: 12,
+                            fontSize: 11,
                             fontWeight: 600,
                             fontFamily: 'monospace'
                         },
@@ -247,18 +289,16 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                             50,
                             100
                         ],
-                        width: 45,
-                        interval: 0,
-                        dx: -5
+                        width: 50
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 118,
+                        lineNumber: 142,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$component$2f$Tooltip$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tooltip"], {
                         content: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CustomTooltip, {}, void 0, false, {
                             fileName: "[project]/src/components/PerformanceChart.tsx",
-                            lineNumber: 130,
+                            lineNumber: 152,
                             columnNumber: 34
                         }, void 0),
                         cursor: {
@@ -269,7 +309,7 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 129,
+                        lineNumber: 151,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$recharts$2f$es6$2f$cartesian$2f$Area$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Area"], {
@@ -288,26 +328,27 @@ const PerformanceChart = ({ data, className = "h-64 w-full", showGrid = true, co
                         animationDuration: 800
                     }, void 0, false, {
                         fileName: "[project]/src/components/PerformanceChart.tsx",
-                        lineNumber: 134,
+                        lineNumber: 156,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/PerformanceChart.tsx",
-                lineNumber: 83,
+                lineNumber: 107,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/components/PerformanceChart.tsx",
-            lineNumber: 82,
+            lineNumber: 106,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/PerformanceChart.tsx",
-        lineNumber: 81,
+        lineNumber: 105,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s(PerformanceChart, "OD7bBpZva5O2jO+Puf00hKivP7c=");
 _c1 = PerformanceChart;
 var _c, _c1;
 __turbopack_context__.k.register(_c, "CustomTooltip");
@@ -636,10 +677,10 @@ const HistoryPage = ()=>{
                                 columnNumber: 21
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "rounded-3xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex flex-col",
+                                className: "rounded-3xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex flex-col flex-1 min-h-0",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "mb-6 flex items-center justify-between",
+                                        className: "mb-6 flex items-center justify-between flex-shrink-0",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-2 text-pacific-500",
@@ -685,10 +726,17 @@ const HistoryPage = ()=>{
                                         lineNumber: 156,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$PerformanceChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PerformanceChart"], {
-                                        data: displayData,
-                                        className: "h-64 w-full",
-                                        onDataSelect: (item)=>setSelectedDate(item.date)
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 min-h-0 overflow-hidden",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$PerformanceChart$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PerformanceChart"], {
+                                            data: displayData,
+                                            className: "h-full w-full",
+                                            onDataSelect: (item)=>setSelectedDate(item.date)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/(portal)/history/page.tsx",
+                                            lineNumber: 167,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
                                         lineNumber: 166,
@@ -726,14 +774,14 @@ const HistoryPage = ()=>{
                                                                 size: 14
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                lineNumber: 183,
+                                                                lineNumber: 185,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             " Day Inspector"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 184,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     selectedDayDetails.score >= 90 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -741,13 +789,13 @@ const HistoryPage = ()=>{
                                                         children: "Elite Performance"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 186,
+                                                        lineNumber: 188,
                                                         columnNumber: 45
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                lineNumber: 181,
+                                                lineNumber: 183,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,7 +810,7 @@ const HistoryPage = ()=>{
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 192,
+                                                        lineNumber: 194,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,7 +824,7 @@ const HistoryPage = ()=>{
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                lineNumber: 196,
+                                                                lineNumber: 198,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -784,25 +832,25 @@ const HistoryPage = ()=>{
                                                                 children: "Daily Score"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                lineNumber: 197,
+                                                                lineNumber: 199,
                                                                 columnNumber: 45
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 195,
+                                                        lineNumber: 197,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                lineNumber: 191,
+                                                lineNumber: 193,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                        lineNumber: 180,
+                                        lineNumber: 182,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -824,18 +872,18 @@ const HistoryPage = ()=>{
                                                                     size: 16
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                    lineNumber: 213,
+                                                                    lineNumber: 215,
                                                                     columnNumber: 72
                                                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XCircle$3e$__["XCircle"], {
                                                                     size: 16
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                    lineNumber: 213,
+                                                                    lineNumber: 215,
                                                                     columnNumber: 101
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                lineNumber: 209,
+                                                                lineNumber: 211,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -845,7 +893,7 @@ const HistoryPage = ()=>{
                                                                         children: detail.habit.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                        lineNumber: 216,
+                                                                        lineNumber: 218,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -860,14 +908,14 @@ const HistoryPage = ()=>{
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                lineNumber: 220,
+                                                                                lineNumber: 222,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 className: "h-3 w-[1px] bg-graphite-200 dark:bg-graphite-700"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                lineNumber: 223,
+                                                                                lineNumber: 225,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -882,7 +930,7 @@ const HistoryPage = ()=>{
                                                                                                 className: stats.currentStreak > 0 ? "text-orange-500" : "text-graphite-300 dark:text-graphite-600"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                                lineNumber: 226,
+                                                                                                lineNumber: 228,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -890,13 +938,13 @@ const HistoryPage = ()=>{
                                                                                                 children: stats.currentStreak
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                                lineNumber: 227,
+                                                                                                lineNumber: 229,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                        lineNumber: 225,
+                                                                                        lineNumber: 227,
                                                                                         columnNumber: 65
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -908,7 +956,7 @@ const HistoryPage = ()=>{
                                                                                                 className: stats.maxStreak > 0 ? "text-yellow-600" : "text-graphite-300 dark:text-graphite-600"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                                lineNumber: 230,
+                                                                                                lineNumber: 232,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -916,37 +964,37 @@ const HistoryPage = ()=>{
                                                                                                 children: stats.maxStreak
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                                lineNumber: 231,
+                                                                                                lineNumber: 233,
                                                                                                 columnNumber: 69
                                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                        lineNumber: 229,
+                                                                                        lineNumber: 231,
                                                                                         columnNumber: 65
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                                lineNumber: 224,
+                                                                                lineNumber: 226,
                                                                                 columnNumber: 61
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                        lineNumber: 219,
+                                                                        lineNumber: 221,
                                                                         columnNumber: 57
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                                lineNumber: 215,
+                                                                lineNumber: 217,
                                                                 columnNumber: 53
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 210,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -954,25 +1002,25 @@ const HistoryPage = ()=>{
                                                         children: detail.done ? '+PTS' : 'MISS'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 239,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, idx, true, {
                                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                                lineNumber: 207,
+                                                lineNumber: 209,
                                                 columnNumber: 45
                                             }, ("TURBOPACK compile-time value", void 0));
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 205,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                lineNumber: 178,
+                                lineNumber: 180,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex-1 flex flex-col items-center justify-center text-graphite-400 p-8 text-center",
@@ -982,7 +1030,7 @@ const HistoryPage = ()=>{
                                         className: "mb-4 opacity-20"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                        lineNumber: 247,
+                                        lineNumber: 249,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -990,23 +1038,23 @@ const HistoryPage = ()=>{
                                         children: "Click on the timeline to inspect detailed logs for that day."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                        lineNumber: 248,
+                                        lineNumber: 250,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/(portal)/history/page.tsx",
-                                lineNumber: 246,
+                                lineNumber: 248,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/app/(portal)/history/page.tsx",
-                            lineNumber: 176,
+                            lineNumber: 178,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/app/(portal)/history/page.tsx",
-                        lineNumber: 175,
+                        lineNumber: 177,
                         columnNumber: 17
                     }, ("TURBOPACK compile-time value", void 0))
                 ]

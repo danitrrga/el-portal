@@ -4,7 +4,13 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { supabaseService } from '@/lib/supabaseService';
 import { CalendarDays, TrendingUp, BarChart3, ChevronDown, CheckCircle2, XCircle, Calendar, RefreshCw, MousePointerClick, Flame, Trophy } from 'lucide-react';
 import { Habit, Cycle } from '@/types/types';
-import { PerformanceChart } from '@/components/PerformanceChart';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PerformanceChart with no SSR
+const PerformanceChart = dynamic(
+    () => import('@/components/PerformanceChart').then(mod => ({ default: mod.PerformanceChart })),
+    { ssr: false }
+);
 
 type TimeRange = '15d' | '30d' | '90d' | 'cycle';
 
@@ -36,7 +42,7 @@ const HistoryPage: React.FC = () => {
             if (res.cycles.length > 0) setSelectedCycleId(res.cycles[0].id);
 
             // Default select today
-            const today = new Date().toISOString().split('T')[0];
+            const today = supabaseService.getLocalDateString();
             setSelectedDate(today);
 
             setLoading(false);
@@ -45,19 +51,40 @@ const HistoryPage: React.FC = () => {
 
     // Filter Data based on controls
     const displayData = useMemo(() => {
-        let filtered = [...rawData];
+        if (!rawData) return [];
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         if (timeRange === 'cycle' && selectedCycleId) {
             const cycle = cycles.find((c: Cycle) => c.id === selectedCycleId);
             if (cycle) {
-                filtered = filtered.filter((d: DayData) => d.date >= cycle.start_date && d.date <= cycle.end_date);
+                const start = new Date(cycle.start_date);
+                const end = new Date(cycle.end_date);
+                const cycleDays = [];
+
+                let current = new Date(start);
+                while (current <= end) {
+                    cycleDays.push(supabaseService.getLocalDateString(current));
+                    current.setDate(current.getDate() + 1);
+                }
+
+                return cycleDays.map(dateStr => {
+                    const existing = rawData.find(d => d.date === dateStr);
+                    return existing || { date: dateStr, score: 0, details: [] };
+                });
             }
         } else {
-            // Date based ranges
             const daysToTake = timeRange === '15d' ? 15 : timeRange === '30d' ? 30 : 90;
-            filtered = filtered.slice(-daysToTake);
+
+            // Protect state from mutation, sort by date descending (newest first)
+            const sortedRecords = [...rawData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            const slicedRecords = sortedRecords.slice(0, daysToTake);
+
+            // Reverse so graph reads chronologically (Oldest -> Newest)
+            return slicedRecords.reverse();
         }
-        return filtered;
+        return rawData;
     }, [rawData, timeRange, selectedCycleId, cycles]);
 
     // Derived Stats
@@ -152,8 +179,8 @@ const HistoryPage: React.FC = () => {
                     </div>
 
                     {/* Chart Container */}
-                    <div className="rounded-3xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex flex-col">
-                        <div className="mb-6 flex items-center justify-between">
+                    <div className="rounded-3xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex flex-col flex-1 min-h-0">
+                        <div className="mb-6 flex items-center justify-between flex-shrink-0">
                             <div className="flex items-center gap-2 text-pacific-500">
                                 <TrendingUp size={20} />
                                 <h3 className="font-bold text-graphite-900 dark:text-white">Performance Trajectory</h3>
@@ -163,11 +190,13 @@ const HistoryPage: React.FC = () => {
                             </div>
                         </div>
 
-                        <PerformanceChart
-                            data={displayData}
-                            className="h-64 w-full"
-                            onDataSelect={(item: any) => setSelectedDate(item.date)}
-                        />
+                        <div className="flex-1 min-h-[400px] w-full relative">
+                            <PerformanceChart
+                                data={displayData}
+                                className="h-full w-full absolute inset-0"
+                                onDataSelect={(item: any) => setSelectedDate(item.date)}
+                            />
+                        </div>
                     </div>
                 </div>
 
