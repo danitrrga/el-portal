@@ -31,7 +31,7 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
   const [conflictProvider, setConflictProvider] = useState<'google' | 'email'>('google');
 
   // n8n Webhook URL
-  const N8N_WEBHOOK_URL = "https://danitrrga2.app.n8n.cloud/webhook-test/signup";
+  const N8N_WEBHOOK_URL = "https://danitrrga2.app.n8n.cloud/webhook/signup";
 
   useEffect(() => {
     checkSession();
@@ -88,7 +88,10 @@ const PortalEntry: React.FC<PortalEntryProps> = ({ onEnter }) => {
       });
 
       const data = await response.json().catch(() => ({}));
-      console.log('n8n Sign Up Response:', response.status, data);
+
+      if (!data || Object.keys(data).length === 0) {
+        throw new Error('Invalid response from server.');
+      }
 
       // Check for error in response body (n8n might return 200 with error in body)
       const errorMessage = data.error || data.message || data.msg || '';

@@ -8,7 +8,7 @@ const data = JSON.stringify({
 
 const options = {
     hostname: 'danitrrga2.app.n8n.cloud',
-    path: '/webhook-test/signup',
+    path: '/webhook/signup',
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
