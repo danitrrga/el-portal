@@ -1,10 +1,19 @@
+<div align="center">
+
 # ✦ PORTAL
 > *The Personal Operating System for High-Performance Living.*
 
-![Status](https://img.shields.io/badge/Status-Active_Development-pacific?style=for-the-badge&color=0ea5e9)
-![Version](https://img.shields.io/badge/Version-0.1.0-zinc?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active_Development-0ea5e9?style=for-the-badge&logo=mediamodifier&logoColor=white)
+![Version](https://img.shields.io/badge/Version-0.1.0-zinc?style=for-the-badge&logo=git&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge&logo=open-source-initiative&logoColor=white)
+
+</div>
+
+---
 
 **PORTAL** is a next-generation life management dashboard designed with a cinematic, high-end aesthetic. It serves as a centralized hub for tracking performance, managing habits, setting goals, and archiving personal wisdom. Built with modern web technologies, it prioritizes fluid animations, dark-mode-first design, and seamless user experience.
+
+If you want a personal, single-user dashboard that feels premium, fast, and alive, this is it.
 
 ---
 
@@ -14,15 +23,23 @@ The system is built on a decoupled architecture leveraging powerful automation a
 
 ```mermaid
 graph TD
-    User((User)) -->|Visits| Client[Next.js Frontend]
-    Client -->|Reads/Writes| DB[(Supabase Postgres)]
-    Client -->|Auth Actions| Auth[Supabase Auth]
+    User((User))
+    Client[Next.js Frontend]
+    DB[(Supabase Postgres)]
+    Auth[Supabase Auth]
+    Automation[n8n Automation]
+    AdminAPI[Supabase Admin API]
+    Gmail[Email Service]
+
+    User -->|Visits| Client
+    Client -->|Reads/Writes| DB
+    Client -->|Auth Actions| Auth
     
-    subgraph "Automation Layer"
-        Client -->|Sign Up (Webhook)| n8n[n8n Automation]
-        n8n -->|Creates User| AdminAPI[Supabase Admin API]
-        n8n -->|Sends Email| Gmail[Email Service]
-        n8n -->|Returns Status| Client
+    subgraph Automation_Layer [Automation Layer]
+        Client -->|Sign Up Webhook| Automation
+        Automation -->|Creates User| AdminAPI
+        Automation -->|Sends Email| Gmail
+        Automation -->|Returns Status| Client
     end
 ```
 
@@ -109,7 +126,7 @@ graph TD
 
 ## 📂 Project Structure
 
-```
+```bash
 el-portal/
 ├── src/
 │   ├── app/                 # Next.js App Router pages
@@ -148,4 +165,8 @@ el-portal/
 
 ---
 
+<div align="center">
+
 *Verified & Documented by System.*
+
+</div>
