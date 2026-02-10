@@ -5,8 +5,6 @@
 
 ![Status](https://img.shields.io/badge/Status-Active_Development-0ea5e9?style=for-the-badge&logo=mediamodifier&logoColor=white)
 ![Version](https://img.shields.io/badge/Version-0.1.0-zinc?style=for-the-badge&logo=git&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge&logo=open-source-initiative&logoColor=white)
-
 </div>
 
 ---
@@ -85,42 +83,10 @@ graph TD
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Access the app via web
+The app is public via vercel, you can access it via the link below:
 
-### Prerequisites
-- Node.js (v18+)
-- npm or pnpm
-- A Supabase project
-- An n8n instance (Cloud or Self-hosted)
-
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/el-portal.git
-    cd el-portal
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    # or
-    pnpm install
-    ```
-
-3.  **Environment Setup:**
-    Create a `.env.local` file in the root directory:
-    ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
-    *(Note: The n8n webhook URL is currently configured in `src/components/PortalEntry.tsx`)*
-
-4.  **Run Development Server:**
-    ```bash
-    npm run dev
-    ```
-    Open [http://localhost:3000](http://localhost:3000) to view the portal.
+[click here to access the portal](https://el-portal-pink.vercel.app/dashboard)
 
 ---
 
@@ -164,9 +130,3 @@ el-portal/
     - If valid, updates user to `email_confirmed: true` and redirects to Dashboard.
 
 ---
-
-<div align="center">
-
-*Verified & Documented by System.*
-
-</div>
