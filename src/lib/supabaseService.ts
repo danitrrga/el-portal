@@ -301,6 +301,26 @@ export class SupabaseService {
         }
     }
 
+    // Toggle a habit log for a specific date (used by History page for retroactive edits)
+    async toggleHabitForDate(habitId: string, date: string, isChecked: boolean): Promise<void> {
+        const userId = await this.getUserId();
+
+        if (isChecked) {
+            const { error } = await supabase.from('habit_logs').insert({
+                habit_id: habitId,
+                date,
+                status: true,
+                user_id: userId
+            });
+            if (error) throw error;
+        } else {
+            const { error } = await supabase.from('habit_logs').delete()
+                .eq('habit_id', habitId)
+                .eq('date', date);
+            if (error) throw error;
+        }
+    }
+
     // -- SLIDES (Storage + DB) --
     async getSlides(): Promise<Slide[]> {
         const { data } = await supabase.from('slides').select('*').order('category');
@@ -599,9 +619,10 @@ export class SupabaseService {
             title: updatedGoal.title,
             description: updatedGoal.description,
             type: updatedGoal.type,
+            cycle_id: updatedGoal.cycle_id,
             subtasks: updatedGoal.subtasks, // JSONB
             current_streak: updatedGoal.current_streak,
-            linked_habit_id: updatedGoal.linked_habit_id // Fix: Was missing, causing goal-habit links to not persist
+            linked_habit_id: updatedGoal.linked_habit_id
         }).eq('id', updatedGoal.id);
 
         if (error) throw error;

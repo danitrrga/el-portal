@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabaseService } from '@/lib/supabaseService';
 import { Version, Cycle, EntityStatus, Habit, Goal, HabitWeight, GoalType } from '@/types/types';
-import { Database, Search, ArrowUpRight, Trash2, Edit3, X, Save } from 'lucide-react';
+import { Database, Search, ArrowUpRight, Trash2, Edit3, X, Save, Copy, ChevronDown } from 'lucide-react';
 import { GoalFormModal } from '@/components/GoalFormModal';
 import { CycleEditorModal } from '@/components/CycleEditorModal';
 import { HabitFormModal } from '@/components/HabitFormModal';
@@ -98,6 +98,88 @@ const EditModal = ({ isOpen, onClose, type, data, onSave, categories }: {
                     </button>
                 </div>
             </div>
+        </div>
+    );
+};
+
+// Inline cycle picker for re-linking goals to a different cycle
+const CyclePicker = ({ goal, cycles, versions, onCycleChange }: {
+    goal: Goal;
+    cycles: Cycle[];
+    versions: Version[];
+    onCycleChange: (goalId: string, newCycleId: string) => void;
+}) => {
+    const [open, setOpen] = useState(false);
+    const [search, setSearch] = useState('');
+    const ref = React.useRef<HTMLDivElement>(null);
+
+    // Build version lookup
+    const vMap = React.useMemo(() => new Map(versions.map(v => [v.id, v])), [versions]);
+
+    const getCycleLabel = (c: Cycle) => {
+        const v = vMap.get(c.version_id);
+        return v ? `Cycle ${c.sprint_number} · ${v.title} v${v.number}.0` : `Cycle ${c.sprint_number}`;
+    };
+
+    const currentCycle = cycles.find(c => c.id === goal.cycle_id);
+    const currentLabel = currentCycle ? getCycleLabel(currentCycle) : 'Unlinked';
+
+    const filtered = cycles.filter(c =>
+        getCycleLabel(c).toLowerCase().includes(search.toLowerCase())
+    );
+
+    // Close on outside click
+    React.useEffect(() => {
+        if (!open) return;
+        const handler = (e: MouseEvent) => {
+            if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+        };
+        document.addEventListener('mousedown', handler);
+        return () => document.removeEventListener('mousedown', handler);
+    }, [open]);
+
+    return (
+        <div ref={ref} className="relative">
+            <button
+                onClick={() => { setOpen(o => !o); setSearch(''); }}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-pacific-600 dark:text-pacific-400 bg-pacific-50 dark:bg-pacific-900/20 hover:bg-pacific-100 dark:hover:bg-pacific-900/40 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            >
+                {currentLabel}
+                <ChevronDown size={12} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+            </button>
+            {open && (
+                <div className="absolute z-50 top-full left-0 mt-1 w-72 bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-700 rounded-xl shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150">
+                    <div className="p-2">
+                        <div className="relative">
+                            <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-graphite-400" />
+                            <input
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
+                                className="w-full bg-graphite-50 dark:bg-graphite-800 border border-graphite-200 dark:border-graphite-700 rounded-lg pl-8 pr-3 py-1.5 text-xs focus:outline-none focus:border-pacific-500"
+                                placeholder="Search cycles…"
+                                autoFocus
+                            />
+                        </div>
+                    </div>
+                    <div className="max-h-48 overflow-y-auto px-1 pb-1">
+                        {filtered.map(c => (
+                            <button
+                                key={c.id}
+                                onClick={() => { onCycleChange(goal.id, c.id); setOpen(false); }}
+                                className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors ${c.id === goal.cycle_id
+                                        ? 'bg-pacific-500 text-white font-bold'
+                                        : 'text-graphite-700 dark:text-graphite-300 hover:bg-graphite-100 dark:hover:bg-graphite-800'
+                                    }`}
+                            >
+                                {getCycleLabel(c)}
+                            </button>
+                        ))}
+                        {filtered.length === 0 && (
+                            <div className="py-3 text-center text-xs text-graphite-400 italic">No cycles found</div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -275,9 +357,35 @@ const DatabasePage: React.FC = () => {
     const activeCycle = cycles.find(c => c.status === EntityStatus.ACTIVE) || cycles[cycles.length - 1];
     const currentCycleHabits = activeCycle ? habits.filter(h => h.cycle_id === activeCycle.id) : [];
 
+    // Handle goal duplication
+    const handleDuplicate = async (goal: Goal) => {
+        const newGoal: Goal = {
+            ...goal,
+            id: crypto.randomUUID(),
+            title: `${goal.title} (Copy)`,
+            subtasks: goal.subtasks?.map(s => ({ ...s, done: false })),
+        };
+        await supabaseService.addGoal(newGoal);
+        loadData();
+    };
+
+    // Handle inline cycle re-linking
+    const handleCycleRelink = async (goalId: string, newCycleId: string) => {
+        const goal = goals.find(g => g.id === goalId);
+        if (!goal) return;
+        const updated = { ...goal, cycle_id: newCycleId };
+        // Optimistic update
+        setGoals(prev => prev.map(g => g.id === goalId ? updated : g));
+        await supabaseService.updateGoal(updated);
+    };
+
     const renderTable = () => {
         let headers: string[] = [];
         let rows: any[] = [];
+
+        // Lookup maps for human-readable labels
+        const versionMap = new Map(versions.map(v => [v.id, v]));
+        const cycleMap = new Map(cycles.map(c => [c.id, c]));
 
         switch (activeTab) {
             case 'versions':
@@ -293,45 +401,62 @@ const DatabasePage: React.FC = () => {
                     original: v
                 }));
                 break;
-            case 'cycles':
-                headers = ['Sprint #', 'Priorities', 'Version Link', 'Dates', 'Actions'];
-                rows = cycles.map((c: Cycle) => ({
-                    id: c.id,
-                    data: [
-                        `Cycle ${c.sprint_number}`,
-                        <div className="flex flex-col gap-1">{c.focus_priorities.slice(0, 2).map((p: string, i: number) => <span key={i} className="text-xs">• {p}</span>)}</div>,
-                        <span className="text-xs text-pacific-500 font-mono">{c.version_id}</span>,
-                        <span className="text-xs font-mono text-graphite-500">{c.start_date} → {c.end_date}</span>
-                    ],
-                    original: c
-                }));
+            case 'cycles': {
+                headers = ['Sprint #', 'Priorities', 'Version', 'Dates', 'Actions'];
+                rows = cycles.map((c: Cycle) => {
+                    const v = versionMap.get(c.version_id);
+                    const vLabel = v ? `${v.title} v${v.number}.0` : '—';
+                    return {
+                        id: c.id,
+                        data: [
+                            `Cycle ${c.sprint_number}`,
+                            <div className="flex flex-col gap-1">{c.focus_priorities.slice(0, 2).map((p: string, i: number) => <span key={i} className="text-xs">• {p}</span>)}</div>,
+                            <span className="text-xs font-medium text-pacific-600 dark:text-pacific-400">{vLabel}</span>,
+                            <span className="text-xs font-mono text-graphite-500">{c.start_date} → {c.end_date}</span>
+                        ],
+                        original: c
+                    };
+                });
                 break;
-            case 'habits':
-                headers = ['Name', 'Category', 'Weight', 'Cycle Link', 'Actions'];
-                rows = habits.map((h: Habit) => ({
-                    id: h.id,
-                    data: [
-                        <span className="font-medium">{h.name}</span>,
-                        <span className="text-xs bg-graphite-100 dark:bg-graphite-800 px-2 py-1 rounded">{h.category}</span>,
-                        <div className="flex gap-0.5">{[...Array(h.weight)].map((_: any, i: number) => <div key={i} className="h-1.5 w-1.5 rounded-full bg-pacific-500" />)}</div>,
-                        <span className="text-xs text-pacific-500 font-mono">{h.cycle_id}</span>
-                    ],
-                    original: h
-                }));
+            }
+            case 'habits': {
+                headers = ['Name', 'Category', 'Weight', 'Cycle · Version', 'Actions'];
+                rows = habits.map((h: Habit) => {
+                    const cyc = cycleMap.get(h.cycle_id);
+                    const ver = cyc ? versionMap.get(cyc.version_id) : undefined;
+                    const label = cyc && ver
+                        ? `Cycle ${cyc.sprint_number} · ${ver.title} v${ver.number}.0`
+                        : cyc ? `Cycle ${cyc.sprint_number}` : '—';
+                    return {
+                        id: h.id,
+                        data: [
+                            <span className="font-medium">{h.name}</span>,
+                            <span className="text-xs bg-graphite-100 dark:bg-graphite-800 px-2 py-1 rounded">{h.category}</span>,
+                            <div className="flex gap-0.5">{[...Array(h.weight)].map((_: any, i: number) => <div key={i} className="h-1.5 w-1.5 rounded-full bg-pacific-500" />)}</div>,
+                            <span className="text-xs font-medium text-pacific-600 dark:text-pacific-400">{label}</span>
+                        ],
+                        original: h
+                    };
+                });
                 break;
-            case 'goals':
-                headers = ['Title', 'Type', 'Cycle Link', 'Linked Habit', 'Actions'];
-                rows = goals.map((g: Goal) => ({
-                    id: g.id,
-                    data: [
-                        <span className="font-medium">{g.title}</span>,
-                        <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded border ${g.type === GoalType.TASK_PROJECT ? 'border-purple-200 text-purple-600 dark:border-purple-900 dark:text-purple-400' : 'border-bali-200 text-bali-600 dark:border-bali-900 dark:text-bali-400'}`}>{g.type === GoalType.TASK_PROJECT ? 'Project' : 'Consistency'}</span>,
-                        <span className="text-xs text-pacific-500 font-mono">{g.cycle_id}</span>,
-                        g.linked_habit_id ? <span className="text-xs font-mono text-graphite-400">{g.linked_habit_id.slice(0, 8)}...</span> : <span className="text-xs text-graphite-300">-</span>
-                    ],
-                    original: g
-                }));
+            }
+            case 'goals': {
+                headers = ['Title', 'Type', 'Cycle · Version', 'Linked Habit', 'Actions'];
+                rows = goals.map((g: Goal) => {
+                    const linkedHabit = g.linked_habit_id ? habits.find(h => h.id === g.linked_habit_id) : null;
+                    return {
+                        id: g.id,
+                        data: [
+                            <span className="font-medium">{g.title}</span>,
+                            <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded border ${g.type === GoalType.TASK_PROJECT ? 'border-purple-200 text-purple-600 dark:border-purple-900 dark:text-purple-400' : 'border-bali-200 text-bali-600 dark:border-bali-900 dark:text-bali-400'}`}>{g.type === GoalType.TASK_PROJECT ? 'Project' : 'Consistency'}</span>,
+                            <CyclePicker goal={g} cycles={cycles} versions={versions} onCycleChange={handleCycleRelink} />,
+                            linkedHabit ? <span className="text-xs font-medium text-graphite-500 dark:text-graphite-400">{linkedHabit.name}</span> : <span className="text-xs text-graphite-300">—</span>
+                        ],
+                        original: g
+                    };
+                });
                 break;
+            }
         }
 
         return (
@@ -351,15 +476,21 @@ const DatabasePage: React.FC = () => {
                             ))}
                             <td className="px-6 py-4">
                                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button onClick={() => handleEdit(row.original)} className="p-1.5 text-graphite-400 hover:text-pacific-500 hover:bg-pacific-50 dark:hover:bg-pacific-900/20 rounded-lg transition-colors">
+                                    <button onClick={() => handleEdit(row.original)} className="p-1.5 text-graphite-400 hover:text-pacific-500 hover:bg-pacific-50 dark:hover:bg-pacific-900/20 rounded-lg transition-colors" title="Edit">
                                         <Edit3 size={16} />
                                     </button>
+                                    {activeTab === 'goals' && (
+                                        <button onClick={() => handleDuplicate(row.original as Goal)} className="p-1.5 text-graphite-400 hover:text-bali-500 hover:bg-bali-50 dark:hover:bg-bali-900/20 rounded-lg transition-colors" title="Duplicate">
+                                            <Copy size={16} />
+                                        </button>
+                                    )}
                                     <button
                                         onClick={() => handleDelete(row.id, activeTab)}
                                         className={`p-1.5 rounded-lg transition-all duration-200 flex items-center gap-2 ${verifyDeleteId === row.id
                                             ? 'bg-red-500 text-white px-3 shadow-lg shadow-red-500/30 opacity-100'
                                             : 'text-graphite-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
                                             }`}
+                                        title="Delete"
                                     >
                                         <Trash2 size={16} />
                                         {verifyDeleteId === row.id && (

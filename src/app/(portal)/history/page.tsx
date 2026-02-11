@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { supabaseService } from '@/lib/supabaseService';
-import { CalendarDays, TrendingUp, BarChart3, ChevronDown, CheckCircle2, XCircle, Calendar, RefreshCw, MousePointerClick, Flame, Trophy } from 'lucide-react';
+import { TrendingUp, BarChart3, ChevronDown, CheckCircle2, XCircle, Calendar, MousePointerClick, Flame, Trophy, Loader2, Pencil } from 'lucide-react';
 import { Habit, Cycle } from '@/types/types';
 import dynamic from 'next/dynamic';
 
@@ -33,6 +33,7 @@ const HistoryPage: React.FC = () => {
     // Interactive Selection
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [hoverDate, setHoverDate] = useState<string | null>(null);
+    const [savingHabitId, setSavingHabitId] = useState<string | null>(null);
 
     useEffect(() => {
         supabaseService.getHistoryData().then((res: any) => {
@@ -99,6 +100,45 @@ const HistoryPage: React.FC = () => {
         if (!selectedDate) return null;
         return rawData.find(d => d.date === selectedDate) || null;
     }, [selectedDate, rawData]);
+
+    // Toggle habit completion for the selected day
+    const handleToggleHabit = useCallback(async (habitId: string, currentDone: boolean) => {
+        if (!selectedDate || savingHabitId) return;
+        const newDone = !currentDone;
+        setSavingHabitId(habitId);
+
+        // Optimistic update
+        setRawData(prev => prev.map(day => {
+            if (day.date !== selectedDate) return day;
+            const updatedDetails = day.details.map(d =>
+                d.habit.id === habitId ? { ...d, done: newDone } : d
+            );
+            // Recalculate score
+            const totalWeight = updatedDetails.reduce((sum, d) => sum + d.habit.weight, 0);
+            const completedWeight = updatedDetails.filter(d => d.done).reduce((sum, d) => sum + d.habit.weight, 0);
+            const newScore = totalWeight > 0 ? Math.round((completedWeight / totalWeight) * 100) : 0;
+            return { ...day, details: updatedDetails, score: newScore };
+        }));
+
+        try {
+            await supabaseService.toggleHabitForDate(habitId, selectedDate, newDone);
+        } catch (err) {
+            console.error('Failed to toggle habit:', err);
+            // Revert on error
+            setRawData(prev => prev.map(day => {
+                if (day.date !== selectedDate) return day;
+                const revertedDetails = day.details.map(d =>
+                    d.habit.id === habitId ? { ...d, done: currentDone } : d
+                );
+                const totalWeight = revertedDetails.reduce((sum, d) => sum + d.habit.weight, 0);
+                const completedWeight = revertedDetails.filter(d => d.done).reduce((sum, d) => sum + d.habit.weight, 0);
+                const newScore = totalWeight > 0 ? Math.round((completedWeight / totalWeight) * 100) : 0;
+                return { ...day, details: revertedDetails, score: newScore };
+            }));
+        } finally {
+            setSavingHabitId(null);
+        }
+    }, [selectedDate, savingHabitId]);
 
     // Format helpers
     const formatDate = (dateStr: string) => {
@@ -210,6 +250,7 @@ const HistoryPage: React.FC = () => {
                                     <div className="flex items-center justify-between mb-4">
                                         <span className="text-xs font-bold uppercase tracking-widest text-graphite-400 flex items-center gap-2">
                                             <Calendar size={14} /> Day Inspector
+                                            <Pencil size={10} className="text-graphite-500 ml-1" />
                                         </span>
                                         {selectedDayDetails.score >= 90 && (
                                             <span className="px-2 py-0.5 rounded bg-bali-100 dark:bg-bali-900/30 text-bali-600 dark:text-bali-400 text-[10px] font-bold uppercase">
@@ -235,12 +276,22 @@ const HistoryPage: React.FC = () => {
                                         return (
                                             <div key={idx} className="flex items-center justify-between group">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`h-8 w-8 rounded-full flex items-center justify-center transition-colors ${detail.done
-                                                        ? 'bg-bali-100 text-bali-600 dark:bg-bali-900/20 dark:text-bali-400'
-                                                        : 'bg-red-100 text-red-500 dark:bg-red-900/20 dark:text-red-400'
-                                                        }`}>
-                                                        {detail.done ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
-                                                    </div>
+                                                    <button
+                                                        onClick={() => handleToggleHabit(detail.habit.id, detail.done)}
+                                                        disabled={savingHabitId === detail.habit.id}
+                                                        className={`h-8 w-8 rounded-full flex items-center justify-center transition-all cursor-pointer
+                                                            ${detail.done
+                                                                ? 'bg-bali-100 text-bali-600 dark:bg-bali-900/20 dark:text-bali-400 hover:bg-bali-200 dark:hover:bg-bali-900/40'
+                                                                : 'bg-red-100 text-red-500 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/40'
+                                                            }
+                                                            hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-wait`}
+                                                        title={detail.done ? 'Mark as incomplete' : 'Mark as complete'}
+                                                    >
+                                                        {savingHabitId === detail.habit.id
+                                                            ? <Loader2 size={14} className="animate-spin" />
+                                                            : detail.done ? <CheckCircle2 size={16} /> : <XCircle size={16} />
+                                                        }
+                                                    </button>
                                                     <div>
                                                         <div className={`text-sm font-medium ${detail.done ? 'text-graphite-900 dark:text-white' : 'text-graphite-500 dark:text-graphite-400'}`}>
                                                             {detail.habit.name}

@@ -260,7 +260,7 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-shrink-0">
 
         {/* Col 1: Habit Tracker - 4 columns */}
-        <div className="lg:col-span-4 rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-4 shadow-sm">
+        <section aria-label="Habit Tracker" className="lg:col-span-4 rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest flex items-center gap-1.5">
               <Calendar size={12} /> HABIT TRACKER
@@ -318,10 +318,10 @@ const Dashboard: React.FC = () => {
               <div className="text-center py-8 text-xs text-graphite-400 italic">No habits defined for this cycle.</div>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Col 2: Arc Cards STACKED VERTICALLY - 2 columns */}
-        <div className="lg:col-span-2 flex flex-col gap-4">
+        <section aria-label="Cycle Progress" className="lg:col-span-2 flex flex-col gap-4">
           {/* Efficiency Arc - Square */}
           <div className="aspect-square rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 shadow-sm flex items-center justify-center">
             <ProgressArc
@@ -343,20 +343,20 @@ const Dashboard: React.FC = () => {
               size="sm"
             />
           </div>
-        </div>
+        </section>
 
         {/* Col 3: Cycle Goals - 3 columns */}
-        <div className="lg:col-span-3 h-full min-h-[400px]">
+        <section aria-label="Goals" className="lg:col-span-3 h-full min-h-[400px]">
           <DashboardGoals
             goals={data.goals.filter(g => g.cycle_id === data.cycle?.id)}
             habits={data.habits}
             habitStats={data.habitStats}
             onUpdate={loadData}
           />
-        </div>
+        </section>
 
         {/* Col 4: Focus Cards - 3 columns */}
-        <div className="lg:col-span-3 flex flex-col gap-3">
+        <section aria-label="Focus and Friction" className="lg:col-span-3 flex flex-col gap-3">
 
           {/* Learning Focus */}
           <div className="rounded-xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-3.5 shadow-sm">
@@ -404,11 +404,11 @@ const Dashboard: React.FC = () => {
               <p className="text-[10px] text-graphite-400 italic">No friction defined</p>
             )}
           </div>
-        </div>
-      </div>
+        </section>
+      </div >
 
       {/* BOTTOM: Progress Chart - Full Width, Taller, Flex to Fill */}
-      <div className="rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex-1 min-h-[350px] flex flex-col">
+      <section aria-label="Performance Stats" className="rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-6 shadow-sm flex-1 min-h-[350px] flex flex-col">
         <div className="flex items-center justify-between mb-4 flex-shrink-0">
           <span className="text-[11px] font-bold uppercase text-graphite-500 flex items-center gap-2">
             <TrendingUp size={14} /> Progress Chart
@@ -436,7 +436,7 @@ const Dashboard: React.FC = () => {
             className="h-full w-full absolute inset-0"
           />
         </div>
-      </div>
+      </section>
 
       {showNewVersion && (
         <NewVersionModal
@@ -445,7 +445,7 @@ const Dashboard: React.FC = () => {
           suggestedNumber={1}
         />
       )}
-    </div>
+    </div >
   );
 };
 
