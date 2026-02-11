@@ -1,203 +1,145 @@
-# Design System Master File
+# Design System: El Portal (v1.0)
 
-> **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
-> If that file exists, its rules **override** this Master file.
-> If not, strictly follow the rules below.
-
----
-
-**Project:** El Portal
-**Generated:** 2026-02-03 17:51:08
-**Category:** Luxury/Premium Brand
+> [!IMPORTANT]  
+> **Source of Truth**: This document is the single source of truth for all UI/UX decisions in El Portal.  
+> **Strict Adherence**: All new components must strictly follow these tokens. No magic values.
 
 ---
 
-## Global Rules
+## 1. Core Principles
 
-### Color Palette
+**Philosophy**:  
+"Scientific Minimalism meets Data Density."  
+El Portal is an Operating System for life management. It should feel like a precision instrument—clean, fast, and incredibly reliable.
 
-| Role | Hex | CSS Variable |
-|------|-----|--------------|
-| Primary | `#1C1917` | `--color-primary` |
-| Secondary | `#44403C` | `--color-secondary` |
-| CTA/Accent | `#CA8A04` | `--color-cta` |
-| Background | `#FAFAF9` | `--color-background` |
-| Text | `#0C0A09` | `--color-text` |
+**Keywords**:  
+`Consistency` • `Clarity` • `Precision` • `Depth`
 
-**Color Notes:** Premium black + gold accent
+---
 
-### Typography
+## 2. Typography
 
-- **Heading Font:** Fira Code
-- **Body Font:** Fira Sans
-- **Mood:** dashboard, data, analytics, code, technical, precise
-- **Google Fonts:** [Fira Code + Fira Sans](https://fonts.google.com/share?selection.family=Fira+Code:wght@400;500;600;700|Fira+Sans:wght@300;400;500;600;700)
+**Single Source of Truth**: `Inter`
 
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+We use **Inter** for *everything* to maintain extreme consistency and a clean, modern aesthetic.
+
+| Role | Font Family | Weight | Usage |
+| :--- | :--- | :--- | :--- |
+| **Unified UI** | `Inter` | 400 - 800 | All text elements. |
+
+### Scale
+- **Display XL**: `text-4xl` font-bold tracking-tight (Page Titles)
+- **Heading L**: `text-2xl` font-bold tracking-tight (Section Headers)
+- **Heading M**: `text-xl` font-semibold (Card Titles)
+- **Body**: `text-sm` (Default text)
+- **Caption**: `text-xs` font-bold uppercase tracking-wider (Labels, Metadata)
+
+---
+
+## 3. Color Palette
+
+### Base (Zinc)
+The foundation of the interface. We use `zinc` (Graphite) for its clean, modern neutrality.
+
+| Token | Hex | Tailwind | Usage |
+| :--- | :--- | :--- | :--- |
+| `bg-body` | `#09090b` | `zinc-950` | Global background (Dark Mode) |
+| `bg-card` | `#18181b` | `zinc-900` | Card background |
+| `bg-subtle` | `#27272a` | `zinc-800` | Secondary backgrounds, hovers |
+| `border-subtle` | `#27272a` | `zinc-800` | Default borders |
+| `text-main` | `#f4f4f5` | `zinc-100` | Primary text |
+| `text-muted` | `#a1a1aa` | `zinc-400` | Secondary text, icons |
+
+### Primary: Pacific (Sky)
+Used for primary actions, active states, and focus.
+
+| Token | Hex | Tailwind | Usage |
+| :--- | :--- | :--- | :--- |
+| `pacific-50` | `#f0f9ff` | `sky-50` | Subtle tints |
+| `pacific-500` | `#0ea5e9` | `sky-500` | **Primary Brand Color** |
+| `pacific-600` | `#0284c7` | `sky-600` | Hover states |
+
+### Secondary: Bali (Emerald)
+Used for success states, completion, and positive trends.
+
+| Token | Hex | Tailwind | Usage |
+| :--- | :--- | :--- | :--- |
+| `bali-500` | `#10b981` | `emerald-500` | Success icons, completion checks |
+| `bali-900` | `#064e3b` | `emerald-900` | Success backgrounds (subtle) |
+
+---
+
+## 4. Components & Patterns
+
+### Cards (The "Glass & Metal" Effect)
+We use a sophisticated layering strategy to create depth:
+1.  **Base**: Deep semi-transparent graphite/black.
+2.  **Texture**: Subtle noise or dot-grid patterns.
+3.  **Border**: Thin, sharp borders (1px) with subtle gradients or gloss.
+4.  **Highlight**: Inner white/pacific glow on top edges.
+
+```tsx
+<div className="relative overflow-hidden rounded-2xl border border-white/10 bg-graphite-900/60 backdrop-blur-md shadow-2xl">
+  {/* Shimmer/Gloss Effect */}
+  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+  {/* Content */}
+</div>
 ```
 
-### Spacing Variables
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
-
-### Shadow Depths
-
-| Level | Value | Usage |
-|-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
-
----
-
-## Component Specs
+### Visual Signatures
+-   **Metallic Gradients**: Use `bg-gradient-to-b from-white/10 to-transparent` for subtle metallic sheens on headers/buttons.
+-   **Dot Grid**: Use `bg-dot-white/[0.2]` (masked) for technological texture.
+-   **Glows**: `shadow-[0_0_20px_rgba(14,165,233,0.3)]` for active elements.
 
 ### Buttons
-
-```css
-/* Primary Button */
-.btn-primary {
-  background: #CA8A04;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* Secondary Button */
-.btn-secondary {
-  background: transparent;
-  color: #1C1917;
-  border: 2px solid #1C1917;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
+**Primary (Glowing)**:
+```tsx
+<button className="relative overflow-hidden rounded-xl bg-pacific-600 px-4 py-2 text-white shadow-[0_0_20px_rgba(14,165,233,0.3)] transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)]">
+  <span className="relative z-10 font-bold tracking-tight">Initialize</span>
+  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+</button>
 ```
 
-### Cards
-
-```css
-.card {
-  background: #FAFAF9;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
+**Secondary/Ghost**:
+```tsx
+<button className="bg-transparent hover:bg-graphite-800 text-graphite-400 hover:text-white font-medium rounded-xl px-4 py-2 transition-colors">
+  Cancel
+</button>
 ```
 
 ### Inputs
-
-```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
-
-.input:focus {
-  border-color: #1C1917;
-  outline: none;
-  box-shadow: 0 0 0 3px #1C191720;
-}
-```
-
-### Modals
-
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-.modal {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
+Minimalist, with a focus ring in Pacific Blue.
+```tsx
+<input className="bg-graphite-50 dark:bg-graphite-950 border border-graphite-200 dark:border-graphite-700 rounded-xl px-3 py-2 focus:border-pacific-500 focus:outline-none transition-colors" />
 ```
 
 ---
 
-## Style Guidelines
-
-**Style:** Liquid Glass
-
-**Keywords:** Flowing glass, morphing, smooth transitions, fluid effects, translucent, animated blur, iridescent, chromatic aberration
-
-**Best For:** Premium SaaS, high-end e-commerce, creative platforms, branding experiences, luxury portfolios
-
-**Key Effects:** Morphing elements (SVG/CSS), fluid animations (400-600ms curves), dynamic blur (backdrop-filter), color transitions
-
-### Page Pattern
-
-**Pattern Name:** Video-First Hero
-
-- **Conversion Strategy:** 86% higher engagement with video. Add captions for accessibility. Compress video for performance.
-- **CTA Placement:** Overlay on video (center/bottom) + Bottom section
-- **Section Order:** 1. Hero with video background, 2. Key features overlay, 3. Benefits section, 4. CTA
+## 5. Iconography
+We use **Lucide React**.
+- **Size**: Default to `size={16}` or `size={18}` for UI icons. `size={14}` for metadata.
+- **Stroke**: Default stroke width.
+- **Color**: `text-graphite-400` for passive, `text-pacific-500` for active.
 
 ---
 
-## Anti-Patterns (Do NOT Use)
-
-- ❌ Cheap visuals
-- ❌ Fast animations
-
-### Additional Forbidden Patterns
-
-- ❌ **Emojis as icons** — Use SVG icons (Heroicons, Lucide, Simple Icons)
-- ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
-- ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
-- ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
-- ❌ **Instant state changes** — Always use transitions (150-300ms)
-- ❌ **Invisible focus states** — Focus states must be visible for a11y
+## 6. Layout & Spacing
+- **Radius**: `rounded-2xl` (16px) for cards/modals. `rounded-xl` (12px) for buttons/inputs.
+- **Padding**: `p-6` for standard cards. `p-4` for compact ones.
+- **Gap**: `gap-4` or `gap-6` standard.
 
 ---
 
-## Pre-Delivery Checklist
+### Motion (Subtle & Intentional)
+**Rule**: "No Continuous Motion."
+Interface elements should be static unless interacted with.
+-   **Duration**: `duration-200` or `duration-300` standard.
+-   **Easing**: `ease-out`.
+-   **Hovers**: Subtle brightness shifts (`brightness-110`) or micro-lifts (`-translate-y-[1px]`).
+-   **No Loops**: Avoid infinite animations (pulsing, shimmering) unless for critical alerts.
 
-Before delivering any UI code, verify:
-
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] `cursor-pointer` on all clickable elements
-- [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Light mode: text contrast 4.5:1 minimum
-- [ ] Focus states visible for keyboard navigation
-- [ ] `prefers-reduced-motion` respected
-- [ ] Responsive: 375px, 768px, 1024px, 1440px
-- [ ] No content hidden behind fixed navbars
-- [ ] No horizontal scroll on mobile
+### Anti-Patterns (Do NOT Use)
+-   ❌ **Flashy Animations**: No shimmering borders or continuous movement.
+-   ❌ **Light mode default**: Always check dark mode first.
+-   ❌ **Emojis as icons**: Use SVG icons (Lucide).
+-   ❌ **Layout-shifting**: Avoid hover states that change element dimensions.
