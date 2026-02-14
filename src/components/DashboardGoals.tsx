@@ -86,7 +86,7 @@ export const DashboardGoals: React.FC<DashboardGoalsProps> = ({
 
     if (!goals || goals.length === 0) {
         return (
-            <Card className="h-full bg-white dark:bg-graphite-900 border-graphite-200 dark:border-graphite-800 shadow-sm">
+            <Card className="h-full bg-white dark:bg-graphite-900 border-graphite-200 dark:border-graphite-800 shadow-sm rounded-2xl">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest flex items-center gap-1.5">
                         <Target size={12} /> CYCLE GOALS
@@ -100,17 +100,23 @@ export const DashboardGoals: React.FC<DashboardGoalsProps> = ({
     }
 
     return (
-        <Card className="h-full bg-white dark:bg-graphite-900 border-graphite-200 dark:border-graphite-800 shadow-sm overflow-hidden flex flex-col">
-            <CardHeader className="pb-3 border-b border-graphite-100 dark:border-graphite-800/50">
+        <Card className="h-full bg-white dark:bg-graphite-900 border-graphite-200 dark:border-graphite-800 shadow-sm overflow-hidden flex flex-col rounded-2xl">
+            <CardHeader className="p-4 pb-3">
                 <div className="flex items-center justify-between">
                     <CardTitle className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest flex items-center gap-1.5">
                         <Target size={12} /> CYCLE GOALS
                     </CardTitle>
+                    <span className="text-[10px] font-mono text-graphite-400">
+                        {optimisticGoals.filter(g => g.type === GoalType.TASK_PROJECT).filter(g => {
+                            const pct = getPercentage(g);
+                            return pct >= 100;
+                        }).length}/{optimisticGoals.filter(g => g.type === GoalType.TASK_PROJECT).length}
+                    </span>
                 </div>
             </CardHeader>
 
             <CardContent className="p-0 overflow-y-auto flex-1 custom-scrollbar">
-                <div className="flex flex-col divide-y divide-graphite-100 dark:divide-graphite-800/50">
+                <div className="flex flex-col">
                     {optimisticGoals.filter(g => g.type === GoalType.TASK_PROJECT).slice(0, 5).map((goal) => {
                         const isExpanded = expandedGoalId === goal.id;
                         const percentage = getPercentage(goal);

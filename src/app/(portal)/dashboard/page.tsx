@@ -257,10 +257,10 @@ const Dashboard: React.FC = () => {
       </header>
 
       {/* MAIN GRID: 4-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-shrink-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-shrink-0 items-stretch">
 
         {/* Col 1: Habit Tracker - 4 columns */}
-        <section aria-label="Habit Tracker" className="lg:col-span-4 rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-4 shadow-sm">
+        <section aria-label="Habit Tracker" className="lg:col-span-4 rounded-2xl bg-white dark:bg-graphite-900 border border-graphite-200 dark:border-graphite-800 p-4 shadow-sm flex flex-col">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest flex items-center gap-1.5">
               <Calendar size={12} /> HABIT TRACKER
@@ -346,7 +346,7 @@ const Dashboard: React.FC = () => {
         </section>
 
         {/* Col 3: Cycle Goals - 3 columns */}
-        <section aria-label="Goals" className="lg:col-span-3 h-full min-h-[400px]">
+        <section aria-label="Goals" className="lg:col-span-3 h-full">
           <DashboardGoals
             goals={data.goals.filter(g => g.cycle_id === data.cycle?.id)}
             habits={data.habits}
